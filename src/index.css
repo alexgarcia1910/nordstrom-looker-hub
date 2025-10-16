@@ -52,6 +52,20 @@ All colors MUST be HSL.
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --shadow-subtle: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
     --shadow-elevated: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+
+    /* V2 design tokens - premium palette */
+    --v2-background: 0 0% 97.6%;
+    --v2-surface: 0 0% 100%;
+    --v2-text-primary: 0 0% 13.3%;
+    --v2-text-secondary: 0 0% 46.7%;
+    --v2-accent-soft: 0 0% 91.8%;
+    --v2-info-bg: 40 20% 96.9%;
+    --v2-black: 0 0% 6.7%;
+    --v2-border-soft: 0 0% 91.8%;
+    
+    --shadow-soft: 0 2px 8px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.06);
+    --shadow-premium: 0 4px 16px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04);
+    --shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06);
   }
 }
 
@@ -77,5 +91,20 @@ All colors MUST be HSL.
 
   .smooth-transition {
     transition: var(--transition-smooth);
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.5s ease-out;
   }
 }
