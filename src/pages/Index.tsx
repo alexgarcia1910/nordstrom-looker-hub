@@ -5,8 +5,9 @@ import { SearchBar } from "@/components/SearchBar";
 import { QuickAccessTile } from "@/components/QuickAccessTile";
 import { DataCard } from "@/components/DataCard";
 import { InfoBanner } from "@/components/InfoBanner";
-import { Compass, BookOpen, AlertCircle } from "lucide-react";
+import { Compass, BookOpen } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import { DataQualityOverview } from "@/components/DataQualityOverview";
 
 const mockData = [
   {
@@ -137,22 +138,7 @@ const Index = () => {
             </Card>
           )}
           
-          <footer className="mt-12 pt-8 border-t border-border">
-            <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
-              <AlertCircle className="h-4 w-4" />
-              <span className="font-medium">Data Quality Status</span>
-            </div>
-            <div className="flex flex-wrap gap-4 text-sm">
-              <div className="flex items-center gap-2">
-                <div className="h-2 w-2 rounded-full bg-green-500" />
-                <span className="text-muted-foreground">All systems operational</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="h-2 w-2 rounded-full bg-green-500" />
-                <span className="text-muted-foreground">Data refreshed 2 hours ago</span>
-              </div>
-            </div>
-          </footer>
+          <DataQualityOverview isAdminMode={isAdminMode} />
         </main>
       </div>
     </div>
