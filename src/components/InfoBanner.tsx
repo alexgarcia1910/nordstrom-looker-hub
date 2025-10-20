@@ -31,6 +31,10 @@ export const InfoBanner = () => {
               </li>
               <li className="flex items-start">
                 <span className="mr-2">•</span>
+                <span><strong>Using Data Hub:</strong> Open the Data Hub plug-in from any Dashboard or Explore to view dataset fields, owners, and definitions</span>
+              </li>
+              <li className="flex items-start">
+                <span className="mr-2">•</span>
                 <span><strong>Getting Help:</strong> Use Job Aids or Issue Escalation in the top-right for support</span>
               </li>
             </ul>
