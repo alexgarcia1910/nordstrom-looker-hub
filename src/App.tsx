@@ -7,6 +7,8 @@ import Index from "./pages/Index";
 import V2 from "./pages/V2";
 import Admin from "./pages/Admin";
 import NavigationSearch from "./pages/NavigationSearch";
+import FinanceHub from "./pages/FinanceHub";
+import MerchandisingHub from "./pages/MerchandisingHub";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -22,6 +24,8 @@ const App = () => (
           <Route path="/v2" element={<V2 />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/navigation-search" element={<NavigationSearch />} />
+          <Route path="/finance" element={<FinanceHub />} />
+          <Route path="/merchandising" element={<MerchandisingHub />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
