@@ -1,4 +1,4 @@
-import { ExternalLink, Pencil } from "lucide-react";
+import { ExternalLink, Pencil, CheckCircle } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
@@ -47,6 +47,10 @@ export const DataCard = ({
       </CardHeader>
       
       <CardContent>
+        <div className="flex items-center gap-2 mb-3 text-xs text-muted-foreground">
+          <CheckCircle className="h-3.5 w-3.5 text-green-600" />
+          <span>Environment: Production</span>
+        </div>
         <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
           {description}
         </p>
