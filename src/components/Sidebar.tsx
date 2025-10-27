@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Home, Users, DollarSign, ShoppingBag, Store, Truck, Cpu, Menu, X, ChevronLeft, ChevronRight } from "lucide-react";
+import { Home, Users, DollarSign, ShoppingBag, Store, Truck, Cpu, Menu, X, ChevronLeft, ChevronRight, Settings } from "lucide-react";
 import { Button } from "./ui/button";
 import {
   Tooltip,
@@ -13,6 +13,8 @@ import nordstromLogo from "@/assets/nordstrom-n-logo.png";
 interface SidebarProps {
   selectedCategory: string;
   onCategorySelect: (category: string) => void;
+  onAdminToggle: () => void;
+  isAdminMode: boolean;
 }
 
 const categories = [
@@ -25,7 +27,7 @@ const categories = [
   { id: "technology", label: "Technology", icon: Cpu },
 ];
 
-export const Sidebar = ({ selectedCategory, onCategorySelect }: SidebarProps) => {
+export const Sidebar = ({ selectedCategory, onCategorySelect, onAdminToggle, isAdminMode }: SidebarProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
 
@@ -42,7 +44,7 @@ export const Sidebar = ({ selectedCategory, onCategorySelect }: SidebarProps) =>
 
       <aside
         className={cn(
-          "fixed left-0 top-0 h-screen border-r border-border bg-background smooth-transition z-40",
+          "fixed left-0 top-0 h-screen border-r border-border bg-background smooth-transition z-40 flex flex-col",
           "lg:relative lg:h-screen lg:translate-x-0",
           isCollapsed ? "w-20" : "w-64",
           isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
@@ -87,7 +89,7 @@ export const Sidebar = ({ selectedCategory, onCategorySelect }: SidebarProps) =>
           </Button>
         </div>
 
-        <nav className="px-3 space-y-1">
+        <nav className="px-3 space-y-1 flex-1">
           {categories.map((category) => {
             const Icon = category.icon;
             const isActive = selectedCategory === category.id;
@@ -127,6 +129,40 @@ export const Sidebar = ({ selectedCategory, onCategorySelect }: SidebarProps) =>
             return button;
           })}
         </nav>
+
+        <div className="px-3 pb-4 mt-auto border-t border-border pt-4">
+          {isCollapsed ? (
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  variant={isAdminMode ? "default" : "ghost"}
+                  className="w-full justify-center px-2"
+                  onClick={() => {
+                    onAdminToggle();
+                    setIsOpen(false);
+                  }}
+                >
+                  <Settings className="h-4 w-4" />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent side="right">
+                <p>Settings</p>
+              </TooltipContent>
+            </Tooltip>
+          ) : (
+            <Button
+              variant={isAdminMode ? "default" : "ghost"}
+              className="w-full justify-start font-normal"
+              onClick={() => {
+                onAdminToggle();
+                setIsOpen(false);
+              }}
+            >
+              <Settings className="h-4 w-4 mr-3" />
+              Settings
+            </Button>
+          )}
+        </div>
       </aside>
 
       {isOpen && (

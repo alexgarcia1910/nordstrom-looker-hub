@@ -1,12 +1,7 @@
-import { ExternalLink, Settings } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 import { Button } from "./ui/button";
 
-interface NavbarProps {
-  onAdminToggle: () => void;
-  isAdminMode: boolean;
-}
-
-export const Navbar = ({ onAdminToggle, isAdminMode }: NavbarProps) => {
+export const Navbar = () => {
   return (
     <nav className="border-b border-border bg-background">
       <div className="flex items-center justify-end px-6 py-4">
@@ -33,16 +28,6 @@ export const Navbar = ({ onAdminToggle, isAdminMode }: NavbarProps) => {
               Issue Escalation
               <ExternalLink className="ml-2 h-3 w-3" />
             </a>
-          </Button>
-
-          <Button
-            variant={isAdminMode ? "default" : "outline"}
-            size="sm"
-            onClick={onAdminToggle}
-            className="ml-2"
-          >
-            <Settings className="mr-2 h-3 w-3" />
-            Admin Mode
           </Button>
         </div>
       </div>

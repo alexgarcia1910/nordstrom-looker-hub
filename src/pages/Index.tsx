@@ -78,13 +78,12 @@ const Index = () => {
       <Sidebar 
         selectedCategory={selectedCategory}
         onCategorySelect={setSelectedCategory}
+        onAdminToggle={() => setIsAdminMode(!isAdminMode)}
+        isAdminMode={isAdminMode}
       />
       
       <div className="flex-1 flex flex-col">
-        <Navbar 
-          onAdminToggle={() => setIsAdminMode(!isAdminMode)}
-          isAdminMode={isAdminMode}
-        />
+        <Navbar />
         
         <main className="flex-1 p-8 lg:p-12">
           <SearchBar onSearch={handleSearch} />
