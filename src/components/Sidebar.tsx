@@ -49,12 +49,29 @@ export const Sidebar = ({ selectedCategory, onCategorySelect }: SidebarProps) =>
         )}
       >
         <div className="p-4 flex items-center justify-between">
-          {isCollapsed && (
+          {isCollapsed ? (
             <img 
               src={nordstromLogo} 
               alt="Nordstrom" 
               className="h-8 w-8 object-contain"
             />
+          ) : (
+            <svg
+              className="h-6 w-auto"
+              viewBox="0 0 200 50"
+              fill="currentColor"
+            >
+              <text
+                x="10"
+                y="35"
+                fontFamily="serif"
+                fontSize="28"
+                fontWeight="300"
+                letterSpacing="2"
+              >
+                NORDSTROM
+              </text>
+            </svg>
           )}
           <Button
             variant="ghost"
