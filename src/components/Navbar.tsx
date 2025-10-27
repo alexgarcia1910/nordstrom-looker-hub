@@ -11,9 +11,22 @@ export const Navbar = ({ onAdminToggle, isAdminMode }: NavbarProps) => {
     <nav className="border-b border-border bg-background">
       <div className="flex items-center justify-between px-6 py-4">
         <div>
-          <h1 className="text-2xl font-light tracking-tight text-foreground">
-            Welcome to Looker!
-          </h1>
+          <svg
+            className="h-8 w-auto"
+            viewBox="0 0 200 50"
+            fill="currentColor"
+          >
+            <text
+              x="10"
+              y="35"
+              fontFamily="serif"
+              fontSize="28"
+              fontWeight="300"
+              letterSpacing="2"
+            >
+              NORDSTROM
+            </text>
+          </svg>
         </div>
         
         <div className="flex items-center gap-4">
@@ -50,23 +63,6 @@ export const Navbar = ({ onAdminToggle, isAdminMode }: NavbarProps) => {
             <Settings className="mr-2 h-3 w-3" />
             Admin Mode
           </Button>
-          
-          <svg
-            className="h-8 w-auto"
-            viewBox="0 0 200 50"
-            fill="currentColor"
-          >
-            <text
-              x="10"
-              y="35"
-              fontFamily="serif"
-              fontSize="28"
-              fontWeight="300"
-              letterSpacing="2"
-            >
-              NORDSTROM
-            </text>
-          </svg>
         </div>
       </div>
     </nav>
