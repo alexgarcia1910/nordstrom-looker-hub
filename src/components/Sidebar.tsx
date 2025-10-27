@@ -82,7 +82,7 @@ export const Sidebar = ({ selectedCategory, onCategorySelect, onAdminToggle, isA
           <Button
             variant="ghost"
             size="icon"
-            className={cn("hidden lg:flex", isCollapsed && "absolute right-4 top-4")}
+            className={cn("hidden lg:flex", isCollapsed && "absolute -right-3 top-4")}
             onClick={() => setIsCollapsed(!isCollapsed)}
           >
             {isCollapsed ? (
