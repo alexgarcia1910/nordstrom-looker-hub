@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Navbar } from "@/components/Navbar";
 import { Sidebar } from "@/components/Sidebar";
-import { SearchBar } from "@/components/SearchBar";
 import { QuickAccessTile } from "@/components/QuickAccessTile";
 import { DataCard } from "@/components/DataCard";
 import { InfoBanner } from "@/components/InfoBanner";
@@ -85,8 +84,6 @@ const Index = () => {
         <Navbar />
         
         <main className="flex-1 p-8 lg:p-12">
-          <SearchBar onSearch={handleSearch} />
-          
           <InfoBanner />
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12">

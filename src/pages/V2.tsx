@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { NavbarV2 } from "@/components/v2/NavbarV2";
 import { SidebarV2 } from "@/components/v2/SidebarV2";
-import { SearchBarV2 } from "@/components/v2/SearchBarV2";
 import { QuickAccessTileV2 } from "@/components/v2/QuickAccessTileV2";
 import { DataCardV2 } from "@/components/v2/DataCardV2";
 import { InfoBannerV2 } from "@/components/v2/InfoBannerV2";
@@ -103,8 +102,6 @@ const V2 = () => {
               boxShadow: "var(--shadow-premium)"
             }}
           >
-            <SearchBarV2 onSearch={handleSearch} />
-            
             <InfoBannerV2 />
             
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-16">
