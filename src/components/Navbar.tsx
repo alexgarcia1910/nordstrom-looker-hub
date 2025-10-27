@@ -135,15 +135,8 @@ export const Navbar = () => {
                           <span className="flex items-center gap-1">
                             {item.environment === "Production" ? "✅" : "🧪"} {item.environment}
                           </span>
-                          {item.environment === "Production" && (
-                            <>
-                              <span>·</span>
-                              <Lock className="h-3 w-3" />
-                            </>
-                          )}
-                        </div>
-                        <div className="text-xs text-muted-foreground mt-0.5">
-                          {item.type}
+                          <span>·</span>
+                          <span>{item.type}</span>
                         </div>
                       </div>
                     </div>
