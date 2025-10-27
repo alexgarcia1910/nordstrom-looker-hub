@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Home, Users, DollarSign, ShoppingBag, Store, Truck, Cpu, Menu, X, ChevronLeft, ChevronRight, Settings } from "lucide-react";
 import { Button } from "./ui/button";
+import { Link, useLocation } from "react-router-dom";
 import {
   Tooltip,
   TooltipContent,
@@ -18,18 +19,19 @@ interface SidebarProps {
 }
 
 const categories = [
-  { id: "home", label: "Home", icon: Home },
-  { id: "customer", label: "Customer", icon: Users },
-  { id: "finance", label: "Finance", icon: DollarSign },
-  { id: "merchandising", label: "Merchandising", icon: ShoppingBag },
-  { id: "store-selling", label: "Store Selling", icon: Store },
-  { id: "supply-chain", label: "Supply Chain", icon: Truck },
-  { id: "technology", label: "Technology", icon: Cpu },
+  { id: "home", label: "Home", icon: Home, path: "/" },
+  { id: "customer", label: "Customer", icon: Users, path: "/" },
+  { id: "finance", label: "Finance", icon: DollarSign, path: "/finance" },
+  { id: "merchandising", label: "Merchandising", icon: ShoppingBag, path: "/merchandising" },
+  { id: "store-selling", label: "Store Selling", icon: Store, path: "/" },
+  { id: "supply-chain", label: "Supply Chain", icon: Truck, path: "/" },
+  { id: "technology", label: "Technology", icon: Cpu, path: "/" },
 ];
 
 export const Sidebar = ({ selectedCategory, onCategorySelect, onAdminToggle, isAdminMode }: SidebarProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const location = useLocation();
 
   return (
     <TooltipProvider>
@@ -92,7 +94,7 @@ export const Sidebar = ({ selectedCategory, onCategorySelect, onAdminToggle, isA
         <nav className="px-3 space-y-1 flex-1">
           {categories.map((category) => {
             const Icon = category.icon;
-            const isActive = selectedCategory === category.id;
+            const isActive = location.pathname === category.path;
             
             const button = (
               <Button
@@ -103,13 +105,18 @@ export const Sidebar = ({ selectedCategory, onCategorySelect, onAdminToggle, isA
                   isCollapsed ? "justify-center px-2" : "justify-start",
                   isActive && "bg-secondary font-medium"
                 )}
-                onClick={() => {
-                  onCategorySelect(category.id);
-                  setIsOpen(false);
-                }}
+                asChild
               >
-                <Icon className={cn("h-4 w-4", !isCollapsed && "mr-3")} />
-                {!isCollapsed && category.label}
+                <Link
+                  to={category.path}
+                  onClick={() => {
+                    onCategorySelect(category.id);
+                    setIsOpen(false);
+                  }}
+                >
+                  <Icon className={cn("h-4 w-4", !isCollapsed && "mr-3")} />
+                  {!isCollapsed && category.label}
+                </Link>
               </Button>
             );
 
