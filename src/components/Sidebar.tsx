@@ -48,16 +48,16 @@ export const Sidebar = ({ selectedCategory, onCategorySelect }: SidebarProps) =>
           isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
         )}
       >
-        <div className="p-4 flex items-center justify-between">
+        <div className="p-4 flex items-center justify-between border-b border-border">
           {isCollapsed ? (
             <img 
               src={nordstromLogo} 
               alt="Nordstrom" 
-              className="h-8 w-8 object-contain"
+              className="h-8 w-8 object-contain mx-auto"
             />
           ) : (
             <svg
-              className="h-6 w-auto"
+              className="h-8 w-auto"
               viewBox="0 0 200 50"
               fill="currentColor"
             >
@@ -73,14 +73,26 @@ export const Sidebar = ({ selectedCategory, onCategorySelect }: SidebarProps) =>
               </text>
             </svg>
           )}
-          <Button
-            variant="ghost"
-            size="icon"
-            className="hidden lg:flex ml-auto"
-            onClick={() => setIsCollapsed(!isCollapsed)}
-          >
-            <Menu className="h-4 w-4" />
-          </Button>
+          {!isCollapsed && (
+            <Button
+              variant="ghost"
+              size="icon"
+              className="hidden lg:flex"
+              onClick={() => setIsCollapsed(!isCollapsed)}
+            >
+              <Menu className="h-4 w-4" />
+            </Button>
+          )}
+          {isCollapsed && (
+            <Button
+              variant="ghost"
+              size="icon"
+              className="hidden lg:flex absolute top-4 right-2"
+              onClick={() => setIsCollapsed(!isCollapsed)}
+            >
+              <Menu className="h-4 w-4" />
+            </Button>
+          )}
         </div>
 
         <nav className="px-3 space-y-1">

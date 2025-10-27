@@ -9,26 +9,7 @@ interface NavbarProps {
 export const Navbar = ({ onAdminToggle, isAdminMode }: NavbarProps) => {
   return (
     <nav className="border-b border-border bg-background">
-      <div className="flex items-center justify-between px-6 py-4">
-        <div>
-          <svg
-            className="h-8 w-auto"
-            viewBox="0 0 200 50"
-            fill="currentColor"
-          >
-            <text
-              x="10"
-              y="35"
-              fontFamily="serif"
-              fontSize="28"
-              fontWeight="300"
-              letterSpacing="2"
-            >
-              NORDSTROM
-            </text>
-          </svg>
-        </div>
-        
+      <div className="flex items-center justify-end px-6 py-4">
         <div className="flex items-center gap-4">
           <Button
             variant="ghost"
