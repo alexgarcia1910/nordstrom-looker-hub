@@ -130,7 +130,7 @@ export const Sidebar = ({ selectedCategory, onCategorySelect, onAdminToggle, isA
           })}
         </nav>
 
-        <div className="px-3 pb-4 mt-auto border-t border-border pt-4">
+        <div className="px-3 pb-4 mt-auto pt-4">
           {isCollapsed ? (
             <Tooltip>
               <TooltipTrigger asChild>
