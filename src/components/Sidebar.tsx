@@ -8,6 +8,7 @@ import {
   TooltipTrigger,
 } from "./ui/tooltip";
 import { cn } from "@/lib/utils";
+import nordstromLogo from "@/assets/nordstrom-n-logo.png";
 
 interface SidebarProps {
   selectedCategory: string;
@@ -47,11 +48,18 @@ export const Sidebar = ({ selectedCategory, onCategorySelect }: SidebarProps) =>
           isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
         )}
       >
-        <div className="p-4">
+        <div className="p-4 flex items-center justify-between">
+          {isCollapsed && (
+            <img 
+              src={nordstromLogo} 
+              alt="Nordstrom" 
+              className="h-8 w-8 object-contain"
+            />
+          )}
           <Button
             variant="ghost"
             size="icon"
-            className="hidden lg:flex ml-auto mb-2"
+            className="hidden lg:flex ml-auto"
             onClick={() => setIsCollapsed(!isCollapsed)}
           >
             <Menu className="h-4 w-4" />
