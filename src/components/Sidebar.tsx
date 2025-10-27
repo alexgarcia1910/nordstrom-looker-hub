@@ -94,7 +94,9 @@ export const Sidebar = ({ selectedCategory, onCategorySelect, onAdminToggle, isA
         <nav className="px-3 space-y-1 flex-1">
           {categories.map((category) => {
             const Icon = category.icon;
-            const isActive = location.pathname === category.path;
+            const isActive = category.path === "/"
+              ? location.pathname === "/" && category.id === "home"
+              : location.pathname === category.path;
             
             const button = (
               <Button
