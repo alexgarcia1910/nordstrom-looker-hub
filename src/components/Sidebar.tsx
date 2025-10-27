@@ -52,13 +52,15 @@ export const Sidebar = ({ selectedCategory, onCategorySelect, onAdminToggle, isA
           isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
         )}
       >
-        <div className={cn("p-4 flex items-center", isCollapsed ? "justify-between gap-2" : "justify-between")}>
+        <div className="p-4 relative flex items-center justify-between">
           {isCollapsed ? (
-            <img 
-              src={nordstromLogo} 
-              alt="Nordstrom" 
-              className="h-8 w-8 object-contain"
-            />
+            <div className="w-full flex justify-center">
+              <img 
+                src={nordstromLogo} 
+                alt="Nordstrom" 
+                className="h-8 w-8 object-contain"
+              />
+            </div>
           ) : (
             <svg
               className="h-8 w-auto"
@@ -80,7 +82,7 @@ export const Sidebar = ({ selectedCategory, onCategorySelect, onAdminToggle, isA
           <Button
             variant="ghost"
             size="icon"
-            className="hidden lg:flex"
+            className={cn("hidden lg:flex", isCollapsed && "absolute right-4 top-4")}
             onClick={() => setIsCollapsed(!isCollapsed)}
           >
             {isCollapsed ? (
