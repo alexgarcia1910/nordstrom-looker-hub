@@ -9,6 +9,7 @@ import Admin from "./pages/Admin";
 import NavigationSearch from "./pages/NavigationSearch";
 import FinanceHub from "./pages/FinanceHub";
 import MerchandisingHub from "./pages/MerchandisingHub";
+import Alerts from "./pages/Alerts";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -26,6 +27,7 @@ const App = () => (
           <Route path="/navigation-search" element={<NavigationSearch />} />
           <Route path="/finance" element={<FinanceHub />} />
           <Route path="/merchandising" element={<MerchandisingHub />} />
+          <Route path="/alerts" element={<Alerts />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

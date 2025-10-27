@@ -7,7 +7,6 @@ import { DataCard } from "@/components/DataCard";
 import { InfoBanner } from "@/components/InfoBanner";
 import { Compass, BookOpen } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-import { DataQualityOverview } from "@/components/DataQualityOverview";
 
 const mockData = [
   {
@@ -136,8 +135,6 @@ const Index = () => {
               </CardContent>
             </Card>
           )}
-          
-          <DataQualityOverview isAdminMode={isAdminMode} />
         </main>
       </div>
     </div>
