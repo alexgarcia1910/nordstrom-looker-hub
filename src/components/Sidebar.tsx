@@ -48,7 +48,7 @@ export const Sidebar = ({ selectedCategory, onCategorySelect }: SidebarProps) =>
           isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
         )}
       >
-        <div className="p-4 flex items-center justify-between border-b border-border">
+        <div className="p-4 flex items-center justify-between">
           {isCollapsed ? (
             <img 
               src={nordstromLogo} 
