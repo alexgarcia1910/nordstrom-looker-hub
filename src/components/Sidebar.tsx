@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Home, Users, DollarSign, ShoppingBag, Store, Truck, Cpu, Menu, X } from "lucide-react";
+import { Home, Users, DollarSign, ShoppingBag, Store, Truck, Cpu, Menu, X, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "./ui/button";
 import {
   Tooltip,
@@ -48,12 +48,12 @@ export const Sidebar = ({ selectedCategory, onCategorySelect }: SidebarProps) =>
           isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
         )}
       >
-        <div className="p-4 flex items-center justify-between">
+        <div className={cn("p-4 flex items-center", isCollapsed ? "justify-between gap-2" : "justify-between")}>
           {isCollapsed ? (
             <img 
               src={nordstromLogo} 
               alt="Nordstrom" 
-              className="h-8 w-8 object-contain mx-auto"
+              className="h-8 w-8 object-contain"
             />
           ) : (
             <svg
@@ -73,26 +73,18 @@ export const Sidebar = ({ selectedCategory, onCategorySelect }: SidebarProps) =>
               </text>
             </svg>
           )}
-          {!isCollapsed && (
-            <Button
-              variant="ghost"
-              size="icon"
-              className="hidden lg:flex"
-              onClick={() => setIsCollapsed(!isCollapsed)}
-            >
-              <Menu className="h-4 w-4" />
-            </Button>
-          )}
-          {isCollapsed && (
-            <Button
-              variant="ghost"
-              size="icon"
-              className="hidden lg:flex absolute top-4 right-2"
-              onClick={() => setIsCollapsed(!isCollapsed)}
-            >
-              <Menu className="h-4 w-4" />
-            </Button>
-          )}
+          <Button
+            variant="ghost"
+            size="icon"
+            className="hidden lg:flex"
+            onClick={() => setIsCollapsed(!isCollapsed)}
+          >
+            {isCollapsed ? (
+              <ChevronRight className="h-4 w-4" />
+            ) : (
+              <ChevronLeft className="h-4 w-4" />
+            )}
+          </Button>
         </div>
 
         <nav className="px-3 space-y-1">
