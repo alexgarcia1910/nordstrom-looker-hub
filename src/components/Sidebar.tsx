@@ -99,11 +99,11 @@ export const Sidebar = ({ selectedCategory, onCategorySelect, onAdminToggle, isA
             const button = (
               <Button
                 key={category.id}
-                variant={isActive ? "secondary" : "ghost"}
+                variant="ghost"
                 className={cn(
-                  "w-full font-normal",
+                  "w-full font-normal hover:bg-accent",
                   isCollapsed ? "justify-center px-2" : "justify-start",
-                  isActive && "bg-secondary font-medium"
+                  isActive && "bg-secondary font-medium hover:bg-secondary"
                 )}
                 asChild
               >
@@ -142,14 +142,13 @@ export const Sidebar = ({ selectedCategory, onCategorySelect, onAdminToggle, isA
             <Tooltip>
               <TooltipTrigger asChild>
                 <Button
-                  variant={isAdminMode ? "default" : "ghost"}
+                  variant={location.pathname === "/admin" ? "secondary" : "ghost"}
                   className="w-full justify-center px-2"
-                  onClick={() => {
-                    onAdminToggle();
-                    setIsOpen(false);
-                  }}
+                  asChild
                 >
-                  <Settings className="h-4 w-4" />
+                  <Link to="/admin" onClick={() => setIsOpen(false)}>
+                    <Settings className="h-4 w-4" />
+                  </Link>
                 </Button>
               </TooltipTrigger>
               <TooltipContent side="right">
@@ -158,15 +157,14 @@ export const Sidebar = ({ selectedCategory, onCategorySelect, onAdminToggle, isA
             </Tooltip>
           ) : (
             <Button
-              variant={isAdminMode ? "default" : "ghost"}
+              variant={location.pathname === "/admin" ? "secondary" : "ghost"}
               className="w-full justify-start font-normal"
-              onClick={() => {
-                onAdminToggle();
-                setIsOpen(false);
-              }}
+              asChild
             >
-              <Settings className="h-4 w-4 mr-3" />
-              Settings
+              <Link to="/admin" onClick={() => setIsOpen(false)}>
+                <Settings className="h-4 w-4 mr-3" />
+                Settings
+              </Link>
             </Button>
           )}
         </div>
