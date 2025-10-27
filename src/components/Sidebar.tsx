@@ -101,7 +101,7 @@ export const Sidebar = ({ selectedCategory, onCategorySelect, onAdminToggle, isA
                 key={category.id}
                 variant="ghost"
                 className={cn(
-                  "w-full font-normal hover:bg-accent",
+                  "w-full font-normal bg-transparent hover:bg-accent",
                   isCollapsed ? "justify-center px-2" : "justify-start",
                   isActive && "bg-secondary font-medium hover:bg-secondary"
                 )}
