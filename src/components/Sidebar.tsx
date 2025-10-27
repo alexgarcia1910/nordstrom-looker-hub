@@ -33,7 +33,7 @@ export const Sidebar = ({ selectedCategory, onCategorySelect }: SidebarProps) =>
       <Button
         variant="ghost"
         size="icon"
-        className="fixed left-4 top-20 z-50 lg:hidden"
+        className="fixed left-4 top-4 z-50 lg:hidden"
         onClick={() => setIsOpen(!isOpen)}
       >
         {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -41,8 +41,8 @@ export const Sidebar = ({ selectedCategory, onCategorySelect }: SidebarProps) =>
 
       <aside
         className={cn(
-          "fixed left-0 top-[73px] h-[calc(100vh-73px)] border-r border-border bg-background smooth-transition z-40",
-          "lg:relative lg:top-0 lg:h-auto lg:translate-x-0",
+          "fixed left-0 top-0 h-screen border-r border-border bg-background smooth-transition z-40",
+          "lg:relative lg:h-screen lg:translate-x-0",
           isCollapsed ? "w-20" : "w-64",
           isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
         )}

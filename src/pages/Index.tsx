@@ -74,16 +74,16 @@ const Index = () => {
   });
 
   return (
-    <div className="min-h-screen bg-background">
-      <Navbar 
-        onAdminToggle={() => setIsAdminMode(!isAdminMode)}
-        isAdminMode={isAdminMode}
+    <div className="min-h-screen bg-background flex">
+      <Sidebar 
+        selectedCategory={selectedCategory}
+        onCategorySelect={setSelectedCategory}
       />
       
-      <div className="flex">
-        <Sidebar 
-          selectedCategory={selectedCategory}
-          onCategorySelect={setSelectedCategory}
+      <div className="flex-1 flex flex-col">
+        <Navbar 
+          onAdminToggle={() => setIsAdminMode(!isAdminMode)}
+          isAdminMode={isAdminMode}
         />
         
         <main className="flex-1 p-8 lg:p-12">
