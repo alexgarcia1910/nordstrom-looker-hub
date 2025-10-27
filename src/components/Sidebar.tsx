@@ -1,6 +1,12 @@
 import { useState } from "react";
 import { Home, Users, DollarSign, ShoppingBag, Store, Truck, Cpu, Menu, X } from "lucide-react";
 import { Button } from "./ui/button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "./ui/tooltip";
 import { cn } from "@/lib/utils";
 
 interface SidebarProps {
@@ -20,9 +26,10 @@ const categories = [
 
 export const Sidebar = ({ selectedCategory, onCategorySelect }: SidebarProps) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
   return (
-    <>
+    <TooltipProvider>
       <Button
         variant="ghost"
         size="icon"
@@ -34,22 +41,35 @@ export const Sidebar = ({ selectedCategory, onCategorySelect }: SidebarProps) =>
 
       <aside
         className={cn(
-          "fixed left-0 top-[73px] h-[calc(100vh-73px)] w-64 border-r border-border bg-background smooth-transition z-40",
+          "fixed left-0 top-[73px] h-[calc(100vh-73px)] border-r border-border bg-background smooth-transition z-40",
           "lg:relative lg:top-0 lg:h-auto lg:translate-x-0",
-          isOpen ? "translate-x-0" : "-translate-x-full"
+          isCollapsed ? "w-20" : "w-64",
+          isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
         )}
       >
-        <nav className="p-4 space-y-1">
+        <div className="p-4">
+          <Button
+            variant="ghost"
+            size="icon"
+            className="hidden lg:flex ml-auto mb-2"
+            onClick={() => setIsCollapsed(!isCollapsed)}
+          >
+            <Menu className="h-4 w-4" />
+          </Button>
+        </div>
+
+        <nav className="px-3 space-y-1">
           {categories.map((category) => {
             const Icon = category.icon;
             const isActive = selectedCategory === category.id;
             
-            return (
+            const button = (
               <Button
                 key={category.id}
                 variant={isActive ? "secondary" : "ghost"}
                 className={cn(
-                  "w-full justify-start font-normal",
+                  "w-full font-normal",
+                  isCollapsed ? "justify-center px-2" : "justify-start",
                   isActive && "bg-secondary font-medium"
                 )}
                 onClick={() => {
@@ -57,10 +77,25 @@ export const Sidebar = ({ selectedCategory, onCategorySelect }: SidebarProps) =>
                   setIsOpen(false);
                 }}
               >
-                <Icon className="mr-3 h-4 w-4" />
-                {category.label}
+                <Icon className={cn("h-4 w-4", !isCollapsed && "mr-3")} />
+                {!isCollapsed && category.label}
               </Button>
             );
+
+            if (isCollapsed) {
+              return (
+                <Tooltip key={category.id}>
+                  <TooltipTrigger asChild>
+                    {button}
+                  </TooltipTrigger>
+                  <TooltipContent side="right">
+                    <p>{category.label}</p>
+                  </TooltipContent>
+                </Tooltip>
+              );
+            }
+
+            return button;
           })}
         </nav>
       </aside>
@@ -71,6 +106,6 @@ export const Sidebar = ({ selectedCategory, onCategorySelect }: SidebarProps) =>
           onClick={() => setIsOpen(false)}
         />
       )}
-    </>
+    </TooltipProvider>
   );
 };
