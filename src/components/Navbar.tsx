@@ -1,4 +1,4 @@
-import { ExternalLink, Bell } from "lucide-react";
+import { BookOpen, AlertCircle, Bell } from "lucide-react";
 import { Button } from "./ui/button";
 import { Link } from "react-router-dom";
 
@@ -25,9 +25,9 @@ export const Navbar = () => {
             className="text-sm font-normal"
             asChild
           >
-            <a href="#" target="_blank" rel="noopener noreferrer">
+            <a href="https://nordstrom.com" target="_blank" rel="noopener noreferrer">
+              <BookOpen className="mr-2 h-4 w-4" />
               Job Aids
-              <ExternalLink className="ml-2 h-3 w-3" />
             </a>
           </Button>
           
@@ -37,9 +37,9 @@ export const Navbar = () => {
             className="text-sm font-normal"
             asChild
           >
-            <a href="#" target="_blank" rel="noopener noreferrer">
+            <a href="https://nordstrom.com" target="_blank" rel="noopener noreferrer">
+              <AlertCircle className="mr-2 h-4 w-4" />
               Issue Escalation
-              <ExternalLink className="ml-2 h-3 w-3" />
             </a>
           </Button>
         </div>
