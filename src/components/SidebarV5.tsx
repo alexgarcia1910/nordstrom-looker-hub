@@ -131,7 +131,10 @@ export const SidebarV5 = ({ selectedCategory, onCategorySelect, onAdminToggle, i
     console.log(`Navigating to ${categories.find(c => c.id === categoryId)?.label} → ${subdomain}`);
     setSelectedSubdomain(subdomain);
     onCategorySelect(categoryId, subdomain);
-    setIsOpen(false);
+    // Only close sidebar on mobile (< lg breakpoint)
+    if (window.innerWidth < 1024) {
+      setIsOpen(false);
+    }
   };
 
   return (
