@@ -383,17 +383,17 @@ export const PerformanceKPICards = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 max-w-full">
       {/* Header */}
-      <div className="space-y-2">
-        <h1 className="text-3xl font-semibold text-foreground">Finance Performance & KPIs</h1>
-        <p className="text-muted-foreground">
+      <div className="space-y-1">
+        <h1 className="text-2xl font-semibold text-foreground">Finance Performance & KPIs</h1>
+        <p className="text-sm text-muted-foreground">
           Dashboards and explores tracking financial KPIs and profitability metrics.
         </p>
       </div>
 
       {/* Filter Bar */}
-      <div className="flex flex-wrap items-center gap-3 bg-card p-4 rounded-lg border">
+      <div className="flex flex-wrap items-center gap-3 bg-card p-3 rounded-lg border">
         <Select value={typeFilter} onValueChange={setTypeFilter}>
           <SelectTrigger className="w-[140px]">
             <SelectValue placeholder="Type" />
@@ -455,13 +455,13 @@ export const PerformanceKPICards = () => {
 
       {/* Cards Grid */}
       {filteredDashboards.length === 0 ? (
-        <div className="text-center py-16">
-          <p className="text-muted-foreground text-lg">
+        <div className="text-center py-12">
+          <p className="text-muted-foreground">
             No dashboards available in this subdomain yet.
           </p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {filteredDashboards.map((dashboard) => (
             <Card
               key={dashboard.id}

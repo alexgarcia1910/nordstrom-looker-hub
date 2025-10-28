@@ -189,7 +189,7 @@ export default function V7() {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background flex">
       <SidebarV5
         selectedCategory={selectedCategory}
         onCategorySelect={handleCategorySelect}
@@ -197,10 +197,10 @@ export default function V7() {
         isAdminMode={isAdminMode}
       />
 
-      <div className="lg:ml-64">
+      <div className="flex-1 lg:ml-64 flex flex-col">
         <NavbarV5 />
 
-        <main className="p-8">{renderMainContent()}</main>
+        <main className="flex-1 p-6 overflow-auto">{renderMainContent()}</main>
       </div>
 
       <AlertDialog open={showSupplyChainModal} onOpenChange={setShowSupplyChainModal}>
