@@ -12,7 +12,7 @@ import { cn } from "@/lib/utils";
 
 interface SidebarV5Props {
   selectedCategory: string;
-  onCategorySelect: (category: string) => void;
+  onCategorySelect: (category: string, subdomain?: string) => void;
   onAdminToggle: () => void;
   isAdminMode: boolean;
 }
@@ -130,7 +130,7 @@ export const SidebarV5 = ({ selectedCategory, onCategorySelect, onAdminToggle, i
   const handleSubdomainClick = (categoryId: string, subdomain: string) => {
     console.log(`Navigating to ${categories.find(c => c.id === categoryId)?.label} → ${subdomain}`);
     setSelectedSubdomain(subdomain);
-    onCategorySelect(categoryId);
+    onCategorySelect(categoryId, subdomain);
     setIsOpen(false);
   };
 
