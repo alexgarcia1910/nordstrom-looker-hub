@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import V2 from "./pages/V2";
 import V3 from "./pages/V3";
 import V4 from "./pages/V4";
+import V5 from "./pages/V5";
 import Admin from "./pages/Admin";
 import NavigationSearch from "./pages/NavigationSearch";
 import FinanceHub from "./pages/FinanceHub";
@@ -27,6 +28,7 @@ const App = () => (
           <Route path="/v2" element={<V2 />} />
           <Route path="/v3" element={<V3 />} />
           <Route path="/v4" element={<V4 />} />
+          <Route path="/v5" element={<V5 />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/navigation-search" element={<NavigationSearch />} />
           <Route path="/finance" element={<FinanceHub />} />
