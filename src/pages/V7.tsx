@@ -197,10 +197,10 @@ export default function V7() {
         isAdminMode={isAdminMode}
       />
 
-      <div className="flex-1 lg:ml-64 flex flex-col">
+      <div className="flex-1 flex flex-col">
         <NavbarV5 />
 
-        <main className="flex-1 px-6 py-4 overflow-auto">{renderMainContent()}</main>
+        <main className="flex-1 py-4 pr-6 pl-0 overflow-auto">{renderMainContent()}</main>
       </div>
 
       <AlertDialog open={showSupplyChainModal} onOpenChange={setShowSupplyChainModal}>
