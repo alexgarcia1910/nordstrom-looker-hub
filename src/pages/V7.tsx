@@ -200,7 +200,7 @@ export default function V7() {
       <div className="flex-1 lg:ml-64 flex flex-col">
         <NavbarV5 />
 
-        <main className="flex-1 p-6 overflow-auto">{renderMainContent()}</main>
+        <main className="flex-1 px-6 py-4 overflow-auto">{renderMainContent()}</main>
       </div>
 
       <AlertDialog open={showSupplyChainModal} onOpenChange={setShowSupplyChainModal}>
