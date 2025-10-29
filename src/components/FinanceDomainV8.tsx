@@ -375,12 +375,11 @@ export const FinanceDomainV8 = () => {
                 <TableHead className="font-semibold">Description</TableHead>
                 <TableHead className="font-semibold">Owner</TableHead>
                 <TableHead className="font-semibold">Status</TableHead>
-                <TableHead className="w-16"></TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {filteredData.length === 0 ? <TableRow>
-                  <TableCell colSpan={7} className="text-center py-12 text-muted-foreground">
+                  <TableCell colSpan={6} className="text-center py-12 text-muted-foreground">
                     No results found. Try adjusting your filters.
                   </TableCell>
                 </TableRow> : filteredData.map(item => <TableRow key={item.id} className="hover:bg-muted/50 cursor-pointer transition-colors">
@@ -403,14 +402,6 @@ export const FinanceDomainV8 = () => {
                         {item.status === "Critical" && "🔴 "}
                         {item.status}
                       </Badge>
-                    </TableCell>
-                    <TableCell className="text-center">
-                      {item.type === "Dashboard" && <button onClick={e => {
-                  e.stopPropagation();
-                  toggleFavorite(item.id);
-                }} className="transition-all duration-150 hover:scale-110">
-                          <Heart className={cn("h-5 w-5 transition-colors", favorites.has(item.id) ? "fill-red-600 text-red-600" : "text-gray-300 hover:text-gray-500")} />
-                        </button>}
                     </TableCell>
                   </TableRow>)}
             </TableBody>
