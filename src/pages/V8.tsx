@@ -4,6 +4,8 @@ import { SidebarV8 } from "@/components/SidebarV8";
 import { ActivityCard } from "@/components/ActivityCard";
 import { InfoBannerV8 } from "@/components/InfoBannerV8";
 import { FinanceDomainV8 } from "@/components/FinanceDomainV8";
+import { MerchandisingDomainV8 } from "@/components/MerchandisingDomainV8";
+import { StoreSellingDomainV8 } from "@/components/StoreSellingDomainV8";
 import { Heart, Clock, LayoutGrid, ShieldAlert, ShieldX, X } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -105,6 +107,10 @@ const V8 = () => {
         <main className="flex-1">
           {selectedCategory === "finance" ? (
             <FinanceDomainV8 />
+          ) : selectedCategory === "merchandising" ? (
+            <MerchandisingDomainV8 />
+          ) : selectedCategory === "store-selling" ? (
+            <StoreSellingDomainV8 />
           ) : selectedCategory === "technology" ? (
             <div className="flex items-center justify-center min-h-[70vh]">
               <Card className="max-w-lg w-full text-center p-8">
