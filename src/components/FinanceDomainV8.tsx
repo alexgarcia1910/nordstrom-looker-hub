@@ -283,6 +283,12 @@ export const FinanceDomainV8 = () => {
           </Card>
         </div>
 
+        {/* Page Title & Subtitle */}
+        <div className="mb-5 pt-6 pb-3">
+          <h2 className="text-2xl font-semibold text-foreground mb-2">Finance Data Directory</h2>
+          <p className="text-sm text-muted-foreground">Browse dashboards and explores across all Finance subdomains.</p>
+        </div>
+
         {/* Filter Bar */}
         <div className="bg-card rounded-lg border p-4 mb-6">
           <div className="flex flex-wrap items-center gap-3">
