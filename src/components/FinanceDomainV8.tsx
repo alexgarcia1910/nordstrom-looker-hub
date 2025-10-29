@@ -203,11 +203,9 @@ const mockData: DirectoryItem[] = [{
 export const FinanceDomainV8 = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [typeFilter, setTypeFilter] = useState<string>("all");
-  const [statusFilter, setStatusFilter] = useState<string>("all");
-  const [environmentFilter, setEnvironmentFilter] = useState<string>("all");
-  const [accessFilter, setAccessFilter] = useState<string>("all");
-  const [ownerFilter, setOwnerFilter] = useState<string>("all");
   const [subdomainFilter, setSubdomainFilter] = useState<string>("all");
+  const [ownerFilter, setOwnerFilter] = useState<string>("all");
+  const [statusFilter, setStatusFilter] = useState<string>("all");
   const [favorites, setFavorites] = useState<Set<string>>(new Set(mockData.filter(item => item.isFavorite).map(item => item.id)));
   const toggleFavorite = (id: string) => {
     setFavorites(prev => {
@@ -227,12 +225,10 @@ export const FinanceDomainV8 = () => {
   const filteredData = mockData.filter(item => {
     const matchesSearch = !searchQuery || item.name.toLowerCase().includes(searchQuery.toLowerCase()) || item.description.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesType = typeFilter === "all" || item.type === typeFilter;
-    const matchesStatus = statusFilter === "all" || item.status === statusFilter;
-    const matchesEnvironment = environmentFilter === "all" || item.environment === environmentFilter;
-    const matchesAccess = accessFilter === "all" || item.access === accessFilter;
-    const matchesOwner = ownerFilter === "all" || item.owner === ownerFilter;
     const matchesSubdomain = subdomainFilter === "all" || item.subdomain === subdomainFilter;
-    return matchesSearch && matchesType && matchesStatus && matchesEnvironment && matchesAccess && matchesOwner && matchesSubdomain;
+    const matchesOwner = ownerFilter === "all" || item.owner === ownerFilter;
+    const matchesStatus = statusFilter === "all" || item.status === statusFilter;
+    return matchesSearch && matchesType && matchesSubdomain && matchesOwner && matchesStatus;
   });
   const getStatusBadgeColor = (status: string) => {
     switch (status) {
@@ -306,39 +302,13 @@ export const FinanceDomainV8 = () => {
               </SelectContent>
             </Select>
 
-            <Select value={statusFilter} onValueChange={setStatusFilter}>
-              <SelectTrigger className="w-[140px]">
-                <SelectValue placeholder="Status" />
+            <Select value={subdomainFilter} onValueChange={setSubdomainFilter}>
+              <SelectTrigger className="w-[220px]">
+                <SelectValue placeholder="Subdomain" />
               </SelectTrigger>
               <SelectContent className="bg-card z-50">
-                <SelectItem value="all">All Status</SelectItem>
-                <SelectItem value="Operational">Operational</SelectItem>
-                <SelectItem value="Warning">Warning</SelectItem>
-                <SelectItem value="Critical">Critical</SelectItem>
-              </SelectContent>
-            </Select>
-
-            <Select value={environmentFilter} onValueChange={setEnvironmentFilter}>
-              <SelectTrigger className="w-[160px]">
-                <SelectValue placeholder="Environment" />
-              </SelectTrigger>
-              <SelectContent className="bg-card z-50">
-                <SelectItem value="all">All Environments</SelectItem>
-                <SelectItem value="Production">Production</SelectItem>
-                <SelectItem value="Sandbox">Sandbox</SelectItem>
-                <SelectItem value="Archived">Archived</SelectItem>
-              </SelectContent>
-            </Select>
-
-            <Select value={accessFilter} onValueChange={setAccessFilter}>
-              <SelectTrigger className="w-[130px]">
-                <SelectValue placeholder="Access" />
-              </SelectTrigger>
-              <SelectContent className="bg-card z-50">
-                <SelectItem value="all">All Access</SelectItem>
-                <SelectItem value="Viewer">Viewer</SelectItem>
-                <SelectItem value="Editor">Editor</SelectItem>
-                <SelectItem value="Admin">Admin</SelectItem>
+                <SelectItem value="all">All Subdomains</SelectItem>
+                {uniqueSubdomains.map(subdomain => <SelectItem key={subdomain} value={subdomain}>{subdomain}</SelectItem>)}
               </SelectContent>
             </Select>
 
@@ -352,13 +322,15 @@ export const FinanceDomainV8 = () => {
               </SelectContent>
             </Select>
 
-            <Select value={subdomainFilter} onValueChange={setSubdomainFilter}>
-              <SelectTrigger className="w-[220px]">
-                <SelectValue placeholder="Subdomain" />
+            <Select value={statusFilter} onValueChange={setStatusFilter}>
+              <SelectTrigger className="w-[140px]">
+                <SelectValue placeholder="Status" />
               </SelectTrigger>
               <SelectContent className="bg-card z-50">
-                <SelectItem value="all">All Subdomains</SelectItem>
-                {uniqueSubdomains.map(subdomain => <SelectItem key={subdomain} value={subdomain}>{subdomain}</SelectItem>)}
+                <SelectItem value="all">All Status</SelectItem>
+                <SelectItem value="Operational">Operational</SelectItem>
+                <SelectItem value="Warning">Warning</SelectItem>
+                <SelectItem value="Critical">Critical</SelectItem>
               </SelectContent>
             </Select>
           </div>
