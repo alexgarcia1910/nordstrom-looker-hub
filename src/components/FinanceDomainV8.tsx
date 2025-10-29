@@ -13,7 +13,7 @@ interface DirectoryItem {
   domain: string;
   subdomain: string;
   description: string;
-  status: "Live" | "Updating" | "Deprecated";
+  status: "Operational" | "Warning" | "Critical";
   environment: "Production" | "QA" | "Dev" | "Sandbox" | "Archived";
   access: "Viewer" | "Editor" | "Admin";
   owner: string;
@@ -26,7 +26,7 @@ const mockData: DirectoryItem[] = [{
   domain: "Finance",
   subdomain: "Budgeting & Forecasting",
   description: "Track monthly budget vs actuals across all departments",
-  status: "Live",
+  status: "Operational",
   environment: "Production",
   access: "Viewer",
   owner: "Finance Analytics Team",
@@ -38,7 +38,7 @@ const mockData: DirectoryItem[] = [{
   domain: "Finance",
   subdomain: "Budgeting & Forecasting",
   description: "Deep dive into budget line items and allocation details",
-  status: "Live",
+  status: "Warning",
   environment: "Production",
   access: "Editor",
   owner: "Finance Analytics Team",
@@ -50,7 +50,7 @@ const mockData: DirectoryItem[] = [{
   domain: "Finance",
   subdomain: "Budgeting & Forecasting",
   description: "Regional operating expense variance analysis dashboard",
-  status: "Live",
+  status: "Critical",
   environment: "Production",
   access: "Viewer",
   owner: "Regional Finance",
@@ -62,7 +62,7 @@ const mockData: DirectoryItem[] = [{
   domain: "Finance",
   subdomain: "Budgeting & Forecasting",
   description: "Full-year headcount planning and budget allocation",
-  status: "Updating",
+  status: "Warning",
   environment: "QA",
   access: "Editor",
   owner: "HR Finance Team",
@@ -74,7 +74,7 @@ const mockData: DirectoryItem[] = [{
   domain: "Finance",
   subdomain: "Budgeting & Forecasting",
   description: "Analyze spending patterns by cost center and department",
-  status: "Live",
+  status: "Operational",
   environment: "Production",
   access: "Viewer",
   owner: "Finance Analytics Team",
@@ -86,7 +86,7 @@ const mockData: DirectoryItem[] = [{
   domain: "Finance",
   subdomain: "Performance & KPIs",
   description: "Tracks financial performance metrics and KPI trends across divisions",
-  status: "Live",
+  status: "Operational",
   environment: "Production",
   access: "Viewer",
   owner: "Finance Analytics Team",
@@ -98,7 +98,7 @@ const mockData: DirectoryItem[] = [{
   domain: "Finance",
   subdomain: "Budgeting & Forecasting",
   description: "Monitor capital projects and spending against budget",
-  status: "Live",
+  status: "Operational",
   environment: "Production",
   access: "Editor",
   owner: "Finance Analytics Team",
@@ -110,7 +110,7 @@ const mockData: DirectoryItem[] = [{
   domain: "Finance",
   subdomain: "Budgeting & Forecasting",
   description: "Explore budget data by department and time period",
-  status: "Live",
+  status: "Warning",
   environment: "Production",
   access: "Viewer",
   owner: "Finance Analytics Team",
@@ -122,7 +122,7 @@ const mockData: DirectoryItem[] = [{
   domain: "Finance",
   subdomain: "AP & AR",
   description: "Comprehensive view of accounts payable aging and trends",
-  status: "Live",
+  status: "Operational",
   environment: "Production",
   access: "Viewer",
   owner: "AP Team",
@@ -134,7 +134,7 @@ const mockData: DirectoryItem[] = [{
   domain: "Finance",
   subdomain: "AP & AR",
   description: "Track receivables, aging, and collection metrics",
-  status: "Live",
+  status: "Critical",
   environment: "Production",
   access: "Editor",
   owner: "AR Team",
@@ -146,7 +146,7 @@ const mockData: DirectoryItem[] = [{
   domain: "Finance",
   subdomain: "Profitability Analysis",
   description: "Detailed profitability metrics segmented by product",
-  status: "Live",
+  status: "Operational",
   environment: "Production",
   access: "Viewer",
   owner: "Finance Analytics Team",
@@ -158,7 +158,7 @@ const mockData: DirectoryItem[] = [{
   domain: "Finance",
   subdomain: "Profitability Analysis",
   description: "Interactive exploration of margin trends and drivers",
-  status: "Live",
+  status: "Warning",
   environment: "Production",
   access: "Viewer",
   owner: "Finance Analytics Team",
@@ -170,7 +170,7 @@ const mockData: DirectoryItem[] = [{
   domain: "Finance",
   subdomain: "Budgeting & Forecasting",
   description: "Track budget utilization rates across all cost centers",
-  status: "Deprecated",
+  status: "Critical",
   environment: "Production",
   access: "Viewer",
   owner: "Legacy Systems",
@@ -182,7 +182,7 @@ const mockData: DirectoryItem[] = [{
   domain: "Finance",
   subdomain: "Performance & KPIs",
   description: "Explore revenue patterns and trends across time periods",
-  status: "Live",
+  status: "Operational",
   environment: "Production",
   access: "Viewer",
   owner: "Finance Analytics Team",
@@ -194,7 +194,7 @@ const mockData: DirectoryItem[] = [{
   domain: "Finance",
   subdomain: "Performance & KPIs",
   description: "Daily and monthly cash flow analysis with forecasting",
-  status: "Updating",
+  status: "Warning",
   environment: "QA",
   access: "Editor",
   owner: "Treasury Team",
@@ -236,11 +236,11 @@ export const FinanceDomainV8 = () => {
   });
   const getStatusBadgeColor = (status: string) => {
     switch (status) {
-      case "Live":
+      case "Operational":
         return "bg-green-50 text-green-700 border-green-200";
-      case "Updating":
+      case "Warning":
         return "bg-yellow-50 text-yellow-700 border-yellow-200";
-      case "Deprecated":
+      case "Critical":
         return "bg-red-50 text-red-700 border-red-200";
       default:
         return "bg-gray-50 text-gray-700 border-gray-200";
@@ -312,10 +312,9 @@ export const FinanceDomainV8 = () => {
               </SelectTrigger>
               <SelectContent className="bg-card z-50">
                 <SelectItem value="all">All Status</SelectItem>
-                <SelectItem value="Live">Live</SelectItem>
-                <SelectItem value="Deprecated">Deprecated</SelectItem>
-                <SelectItem value="Draft">Draft</SelectItem>
-                <SelectItem value="In Review">In Review</SelectItem>
+                <SelectItem value="Operational">Operational</SelectItem>
+                <SelectItem value="Warning">Warning</SelectItem>
+                <SelectItem value="Critical">Critical</SelectItem>
               </SelectContent>
             </Select>
 
@@ -372,18 +371,16 @@ export const FinanceDomainV8 = () => {
               <TableRow className="bg-muted/50">
                 <TableHead className="font-semibold">Type</TableHead>
                 <TableHead className="font-semibold">Name</TableHead>
-                <TableHead className="font-semibold">Description</TableHead>
-                <TableHead className="font-semibold">Status</TableHead>
-                <TableHead className="font-semibold">Environment</TableHead>
-                <TableHead className="font-semibold">Access</TableHead>
-                <TableHead className="font-semibold">Owner</TableHead>
                 <TableHead className="font-semibold">Subdomain</TableHead>
+                <TableHead className="font-semibold">Description</TableHead>
+                <TableHead className="font-semibold">Owner</TableHead>
+                <TableHead className="font-semibold">Status</TableHead>
                 <TableHead className="w-16"></TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {filteredData.length === 0 ? <TableRow>
-                  <TableCell colSpan={9} className="text-center py-12 text-muted-foreground">
+                  <TableCell colSpan={7} className="text-center py-12 text-muted-foreground">
                     No results found. Try adjusting your filters.
                   </TableCell>
                 </TableRow> : filteredData.map(item => <TableRow key={item.id} className="hover:bg-muted/50 cursor-pointer transition-colors">
@@ -394,28 +391,19 @@ export const FinanceDomainV8 = () => {
                       </div>
                     </TableCell>
                     <TableCell className="font-medium">{item.name}</TableCell>
+                    <TableCell className="text-sm">{item.subdomain}</TableCell>
                     <TableCell className="text-muted-foreground max-w-md text-sm">
                       {item.description}
                     </TableCell>
+                    <TableCell className="text-sm text-muted-foreground">{item.owner}</TableCell>
                     <TableCell>
                       <Badge variant="outline" className={cn("text-xs", getStatusBadgeColor(item.status))}>
-                        {item.status === "Live" && "🟢 "}
-                        {item.status === "Updating" && "🟡 "}
-                        {item.status === "Deprecated" && "🔴 "}
+                        {item.status === "Operational" && "🟢 "}
+                        {item.status === "Warning" && "🟡 "}
+                        {item.status === "Critical" && "🔴 "}
                         {item.status}
                       </Badge>
                     </TableCell>
-                    <TableCell>
-                      <Badge variant="outline" className={cn("text-xs", getEnvironmentBadgeColor(item.environment))}>
-                        {item.environment === "Production" && "✅ "}
-                        {item.environment === "QA" && "🧪 "}
-                        {item.environment === "Dev" && "🛠 "}
-                        {item.environment}
-                      </Badge>
-                    </TableCell>
-                    <TableCell className="text-sm">{item.access}</TableCell>
-                    <TableCell className="text-sm text-muted-foreground">{item.owner}</TableCell>
-                    <TableCell className="text-sm">{item.subdomain}</TableCell>
                     <TableCell className="text-center">
                       {item.type === "Dashboard" && <button onClick={e => {
                   e.stopPropagation();
