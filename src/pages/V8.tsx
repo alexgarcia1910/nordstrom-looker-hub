@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { NavbarV8 } from "@/components/NavbarV8";
-import { Sidebar } from "@/components/Sidebar";
+import { SidebarV8 } from "@/components/SidebarV8";
 import { ActivityCard } from "@/components/ActivityCard";
 import { InfoBannerV8 } from "@/components/InfoBannerV8";
 import { FinanceDomainV8 } from "@/components/FinanceDomainV8";
@@ -63,7 +63,7 @@ const V8 = () => {
 
   return (
     <div className="min-h-screen bg-background flex">
-      <Sidebar 
+      <SidebarV8 
         selectedCategory={selectedCategory}
         onCategorySelect={handleCategorySelect}
         onAdminToggle={() => setIsAdminMode(!isAdminMode)}
