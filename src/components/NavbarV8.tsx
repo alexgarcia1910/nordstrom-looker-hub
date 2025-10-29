@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { AlertCircle, Search } from "lucide-react";
+import { AlertCircle, Search, LayoutGrid } from "lucide-react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 
@@ -14,6 +14,45 @@ const DASHBOARD_DATA = [
   {"name": "Markdown Optimization Dashboard", "domain": "Merchandising", "type": "Dashboard", "environment": "Production"},
   {"name": "Product Margin Explorer", "domain": "Merchandising", "type": "Explore", "environment": "Development"},
   {"name": "Assortment Planning Dashboard", "domain": "Merchandising", "type": "Dashboard", "environment": "Production"},
+  {"name": "Supplier On-Time Report", "domain": "Supply Chain", "type": "Dashboard", "environment": "Production"},
+  {"name": "Inventory Turns Explorer", "domain": "Supply Chain", "type": "Explore", "environment": "Production"},
+  {"name": "Warehouse Utilization Dashboard", "domain": "Supply Chain", "type": "Dashboard", "environment": "Development"},
+  {"name": "Logistics Cost Analysis", "domain": "Supply Chain", "type": "Explore", "environment": "Production"},
+  {"name": "Shipment Accuracy Dashboard", "domain": "Supply Chain", "type": "Dashboard", "environment": "Production"},
+  {"name": "Store Operations Dashboard", "domain": "Store Selling", "type": "Dashboard", "environment": "Production"},
+  {"name": "Store Sales Explorer", "domain": "Store Selling", "type": "Explore", "environment": "Production"},
+  {"name": "Labor Hours Dashboard", "domain": "Store Selling", "type": "Dashboard", "environment": "Production"},
+  {"name": "Conversion Rate Tracker", "domain": "Store Selling", "type": "Dashboard", "environment": "Development"},
+  {"name": "Customer Satisfaction Explorer", "domain": "Store Selling", "type": "Explore", "environment": "Production"},
+  {"name": "Tech Health Dashboard", "domain": "Technology", "type": "Dashboard", "environment": "Production"},
+  {"name": "Incident Metrics Explorer", "domain": "Technology", "type": "Explore", "environment": "Production"},
+  {"name": "System Uptime Dashboard", "domain": "Technology", "type": "Dashboard", "environment": "Production"},
+  {"name": "ServiceNow Tickets Explorer", "domain": "Technology", "type": "Explore", "environment": "Production"},
+  {"name": "Application Error Dashboard", "domain": "Technology", "type": "Dashboard", "environment": "Development"},
+  {"name": "Customer 360 Dashboard", "domain": "Customer", "type": "Dashboard", "environment": "Production"},
+  {"name": "Customer Feedback Explorer", "domain": "Customer", "type": "Explore", "environment": "Production"},
+  {"name": "Loyalty Insights Dashboard", "domain": "Customer", "type": "Dashboard", "environment": "Production"},
+  {"name": "Churn Prediction Explorer", "domain": "Customer", "type": "Explore", "environment": "Production"},
+  {"name": "NPS Trends Dashboard", "domain": "Customer", "type": "Dashboard", "environment": "Development"},
+  {"name": "Sales Pipeline Tracker", "domain": "Finance", "type": "Dashboard", "environment": "Production"},
+  {"name": "AP Aging Explorer", "domain": "Finance", "type": "Explore", "environment": "Production"},
+  {"name": "Discount Impact Dashboard", "domain": "Merchandising", "type": "Dashboard", "environment": "Production"},
+  {"name": "Vendor Performance Explorer", "domain": "Merchandising", "type": "Explore", "environment": "Production"},
+  {"name": "Out-of-Stock Report", "domain": "Supply Chain", "type": "Dashboard", "environment": "Production"},
+  {"name": "Freight Cost Tracker", "domain": "Supply Chain", "type": "Dashboard", "environment": "Production"},
+  {"name": "Store Footfall Explorer", "domain": "Store Selling", "type": "Explore", "environment": "Production"},
+  {"name": "Daily POS Dashboard", "domain": "Store Selling", "type": "Dashboard", "environment": "Production"},
+  {"name": "Incident Response Metrics", "domain": "Technology", "type": "Dashboard", "environment": "Production"},
+  {"name": "API Latency Explorer", "domain": "Technology", "type": "Explore", "environment": "Development"},
+  {"name": "Bug Fix Trends Dashboard", "domain": "Technology", "type": "Dashboard", "environment": "Production"},
+  {"name": "Customer Orders Explorer", "domain": "Customer", "type": "Explore", "environment": "Production"},
+  {"name": "Cross-Sell Analysis Dashboard", "domain": "Customer", "type": "Dashboard", "environment": "Production"},
+  {"name": "Refund Analytics Explorer", "domain": "Finance", "type": "Explore", "environment": "Production"},
+  {"name": "Sales vs Forecast Dashboard", "domain": "Finance", "type": "Dashboard", "environment": "Production"},
+  {"name": "Inventory Accuracy Explorer", "domain": "Supply Chain", "type": "Explore", "environment": "Production"},
+  {"name": "SKU Turnover Dashboard", "domain": "Merchandising", "type": "Dashboard", "environment": "Production"},
+  {"name": "Data Quality Monitor", "domain": "Technology", "type": "Dashboard", "environment": "Production"},
+  {"name": "Customer Sentiment Dashboard", "domain": "Customer", "type": "Dashboard", "environment": "Production"}
 ];
 
 export const NavbarV8 = () => {
@@ -82,9 +121,13 @@ export const NavbarV8 = () => {
                     className="px-4 py-2.5 cursor-pointer hover:bg-muted/50 border-b border-border last:border-b-0 transition-colors"
                   >
                     <div className="flex items-start gap-2">
-                      <span className="text-base mt-0.5">
-                        {item.type === "Dashboard" ? "📊" : "🔍"}
-                      </span>
+                      <div className="mt-0.5">
+                        {item.type === "Dashboard" ? (
+                          <LayoutGrid className="h-4 w-4 text-foreground" />
+                        ) : (
+                          <Search className="h-4 w-4 text-foreground" />
+                        )}
+                      </div>
                       <div className="flex-1 min-w-0">
                         <div className="font-semibold text-sm text-foreground">
                           {item.name}
@@ -93,7 +136,7 @@ export const NavbarV8 = () => {
                           <span>{item.domain}</span>
                           <span>·</span>
                           <span className="flex items-center gap-1">
-                            {item.environment === "Production" ? "✅" : "🧪"} {item.environment}
+                            {item.environment === "Production" ? "✅" : "🧪"} {item.environment === "Production" ? "Certified" : item.environment}
                           </span>
                           <span>·</span>
                           <span>{item.type}</span>
