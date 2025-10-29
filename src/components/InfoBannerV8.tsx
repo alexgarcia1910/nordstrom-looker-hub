@@ -18,7 +18,7 @@ export const InfoBannerV8 = () => {
           
           <div className="flex-1">
             <h3 className="font-medium mb-3 text-foreground">
-              4 Things to Know About Looker
+              5 Things to Know About Looker
             </h3>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li className="flex items-start">
@@ -36,6 +36,10 @@ export const InfoBannerV8 = () => {
               <li className="flex items-start">
                 <span className="mr-2">•</span>
                 <span><strong>Finding Data Quickly:</strong> Use the global search bar to find dashboards and explores by name, domain, or keyword.</span>
+              </li>
+              <li className="flex items-start">
+                <span className="mr-2">•</span>
+                <span><strong>Need Help:</strong> Use the Issue Escalation link in the top-right corner for support or to report data issues.</span>
               </li>
             </ul>
           </div>
