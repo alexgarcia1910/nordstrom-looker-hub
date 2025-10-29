@@ -3,6 +3,7 @@ import { NavbarV8 } from "@/components/NavbarV8";
 import { Sidebar } from "@/components/Sidebar";
 import { ActivityCard } from "@/components/ActivityCard";
 import { InfoBannerV8 } from "@/components/InfoBannerV8";
+import { FinanceDomainV8 } from "@/components/FinanceDomainV8";
 import { Heart, Clock, LayoutGrid, ShieldAlert, ShieldX, X } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -45,6 +46,10 @@ const V8 = () => {
       return;
     }
     setSelectedCategory(category);
+  };
+
+  const handleBackToHome = () => {
+    setSelectedCategory("home");
   };
 
   const handleSupplyChainModalClose = () => {
@@ -97,8 +102,10 @@ const V8 = () => {
       <div className="flex-1 flex flex-col">
         <NavbarV8 />
         
-        <main className="flex-1 p-8 lg:p-12">
-          {selectedCategory === "technology" ? (
+        <main className="flex-1">
+          {selectedCategory === "finance" ? (
+            <FinanceDomainV8 />
+          ) : selectedCategory === "technology" ? (
             <div className="flex items-center justify-center min-h-[70vh]">
               <Card className="max-w-lg w-full text-center p-8">
                 <CardContent className="space-y-6">
@@ -125,7 +132,7 @@ const V8 = () => {
               </Card>
             </div>
           ) : (
-            <>
+            <div className="p-8 lg:p-12">
               {/* Welcome Banner */}
               <div className="mb-8 text-center">
                 <h1 className="text-4xl font-bold mb-2 text-foreground">
@@ -166,7 +173,7 @@ const V8 = () => {
                   actionHref="#"
                 />
               </div>
-            </>
+            </div>
           )}
         </main>
       </div>
