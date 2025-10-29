@@ -4,12 +4,11 @@ import { Sidebar } from "@/components/Sidebar";
 import { QuickAccessTile } from "@/components/QuickAccessTile";
 import { DataCard } from "@/components/DataCard";
 import { InfoBanner } from "@/components/InfoBanner";
-import { Compass, BookOpen, ShieldAlert, ShieldX } from "lucide-react";
+import { Compass, BookOpen, ShieldAlert, ShieldX, X } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   AlertDialog,
   AlertDialogAction,
-  AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
   AlertDialogFooter,
@@ -111,26 +110,26 @@ const Index = () => {
       
       <AlertDialog open={showSupplyChainModal} onOpenChange={setShowSupplyChainModal}>
         <AlertDialogContent className="max-w-md rounded-xl">
+          <button
+            onClick={handleSupplyChainModalClose}
+            className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none"
+            aria-label="Close modal"
+          >
+            <X className="h-4 w-4" />
+          </button>
           <AlertDialogHeader>
             <div className="flex items-center gap-2 mb-2">
-              <ShieldAlert className="h-5 w-5 text-destructive" />
+              <ShieldAlert className="h-5 w-5 text-muted-foreground" />
               <AlertDialogTitle className="text-xl">Access Restricted</AlertDialogTitle>
             </div>
             <AlertDialogDescription className="text-base leading-relaxed">
-              You don't currently have access to the Supply Chain domain.
-              Please contact your data administrator if you believe this is an error.
+              You don't currently have permission to view this domain. If you believe this is an error or need access for your role, please submit a request.
             </AlertDialogDescription>
           </AlertDialogHeader>
-          <AlertDialogFooter className="flex-col sm:flex-row gap-2">
-            <AlertDialogCancel 
-              onClick={handleSupplyChainModalClose}
-              className="w-full sm:w-auto"
-            >
-              Back to Home
-            </AlertDialogCancel>
+          <AlertDialogFooter>
             <AlertDialogAction
               onClick={() => handleRequestAccess("Supply Chain")}
-              className="w-full sm:w-auto bg-primary text-primary-foreground hover:bg-primary/90"
+              className="w-full bg-primary text-primary-foreground hover:bg-primary/90 transition-all"
             >
               Request Access
             </AlertDialogAction>
