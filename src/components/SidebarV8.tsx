@@ -1,18 +1,14 @@
 import { useState } from "react";
-import { 
-  Home, 
-  DollarSign, 
-  ShoppingBag, 
-  Store, 
-  Package, 
-  Laptop, 
-  Menu, 
-  X,
-  ChevronLeft,
-  ChevronRight,
-  Settings
-} from "lucide-react";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Home, Users, DollarSign, ShoppingBag, Store, Truck, Cpu, Menu, X, ChevronLeft, ChevronRight, Settings } from "lucide-react";
+import { Button } from "./ui/button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "./ui/tooltip";
+import { cn } from "@/lib/utils";
+import nordstromLogo from "@/assets/nordstrom-n-logo.png";
 
 interface SidebarV8Props {
   selectedCategory: string;
@@ -23,175 +19,154 @@ interface SidebarV8Props {
 
 const categories = [
   { id: "home", label: "Home", icon: Home },
+  { id: "customer", label: "Customer", icon: Users },
   { id: "finance", label: "Finance", icon: DollarSign },
   { id: "merchandising", label: "Merchandising", icon: ShoppingBag },
   { id: "store-selling", label: "Store Selling", icon: Store },
-  { id: "supply-chain", label: "Supply Chain", icon: Package },
-  { id: "technology", label: "Technology", icon: Laptop },
+  { id: "supply-chain", label: "Supply Chain", icon: Truck },
+  { id: "technology", label: "Technology", icon: Cpu },
 ];
 
-export const SidebarV8 = ({ 
-  selectedCategory, 
-  onCategorySelect,
-  onAdminToggle,
-  isAdminMode
-}: SidebarV8Props) => {
+export const SidebarV8 = ({ selectedCategory, onCategorySelect, onAdminToggle, isAdminMode }: SidebarV8Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
 
-  const handleCategoryClick = (categoryId: string) => {
-    onCategorySelect(categoryId);
-    setIsOpen(false);
-  };
-
   return (
-    <>
-      {/* Mobile Menu Toggle */}
-      <button
+    <TooltipProvider>
+      <Button
+        variant="ghost"
+        size="icon"
+        className="fixed left-4 top-4 z-50 lg:hidden"
         onClick={() => setIsOpen(!isOpen)}
-        className="lg:hidden fixed top-4 left-4 z-50 p-2 rounded-lg bg-background border shadow-sm"
-        aria-label="Toggle menu"
       >
-        {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-      </button>
+        {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+      </Button>
 
-      {/* Sidebar */}
       <aside
-        className={`
-          fixed lg:static inset-y-0 left-0 z-40
-          ${isCollapsed ? 'w-16' : 'w-64'}
-          bg-background border-r
-          transition-all duration-300 ease-in-out
-          ${isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
-        `}
+        className={cn(
+          "fixed left-0 top-0 h-screen border-r border-border bg-background smooth-transition z-40 flex flex-col",
+          "lg:relative lg:h-screen lg:translate-x-0",
+          isCollapsed ? "w-20" : "w-64",
+          isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
+        )}
       >
-        <div className="flex flex-col h-full">
-          {/* Logo Section */}
-          <div className={`p-4 border-b flex items-center ${isCollapsed ? 'justify-center' : 'justify-between'}`}>
-            {!isCollapsed && (
-              <div className="flex items-center gap-2">
-                <img 
-                  src="/src/assets/nordstrom-n-logo.png" 
-                  alt="Nordstrom" 
-                  className="h-8 w-8"
-                />
-                <span className="font-semibold text-lg">Looker</span>
-              </div>
-            )}
-            {isCollapsed && (
+        <div className="p-4 relative flex items-center justify-between">
+          {isCollapsed ? (
+            <div className="w-full flex justify-center">
               <img 
-                src="/src/assets/nordstrom-n-logo.png" 
+                src={nordstromLogo} 
                 alt="Nordstrom" 
-                className="h-8 w-8"
+                className="h-8 w-8 object-contain"
               />
-            )}
-            <button
-              onClick={() => setIsCollapsed(!isCollapsed)}
-              className="hidden lg:block p-1 rounded hover:bg-accent"
-              aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+            </div>
+          ) : (
+            <svg
+              className="h-8 w-auto"
+              viewBox="0 0 200 50"
+              fill="currentColor"
             >
-              {isCollapsed ? <ChevronRight className="h-5 w-5" /> : <ChevronLeft className="h-5 w-5" />}
-            </button>
-          </div>
+              <text
+                x="10"
+                y="35"
+                fontFamily="serif"
+                fontSize="28"
+                fontWeight="300"
+                letterSpacing="2"
+              >
+                NORDSTROM
+              </text>
+            </svg>
+          )}
+          <Button
+            variant="ghost"
+            size="icon"
+            className={cn("hidden lg:flex", isCollapsed && "absolute -right-3 top-4")}
+            onClick={() => setIsCollapsed(!isCollapsed)}
+          >
+            {isCollapsed ? (
+              <ChevronRight className="h-4 w-4" />
+            ) : (
+              <ChevronLeft className="h-4 w-4" />
+            )}
+          </Button>
+        </div>
 
-          {/* Navigation */}
-          <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
-            <TooltipProvider delayDuration={0}>
-              {categories.map((category) => {
-                const Icon = category.icon;
-                const isActive = selectedCategory === category.id;
+        <nav className="px-3 space-y-1 flex-1">
+          {categories.map((category) => {
+            const Icon = category.icon;
+            const isActive = selectedCategory === category.id;
+            
+            const button = (
+              <Button
+                key={category.id}
+                variant="ghost"
+                className={cn(
+                  "w-full font-normal bg-transparent hover:bg-accent",
+                  isCollapsed ? "justify-center px-2" : "justify-start",
+                  isActive && "bg-secondary font-medium hover:bg-secondary"
+                )}
+                onClick={() => {
+                  onCategorySelect(category.id);
+                  setIsOpen(false);
+                }}
+              >
+                <Icon className={cn("h-4 w-4", !isCollapsed && "mr-3")} />
+                {!isCollapsed && category.label}
+              </Button>
+            );
 
-                const buttonContent = (
-                  <button
-                    onClick={() => handleCategoryClick(category.id)}
-                    className={`
-                      w-full flex items-center gap-3 px-4 py-3 rounded-lg
-                      transition-all duration-200
-                      ${isActive 
-                        ? 'bg-primary text-primary-foreground shadow-sm' 
-                        : 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'
-                      }
-                      ${isCollapsed ? 'justify-center' : ''}
-                    `}
-                  >
-                    <Icon className={`${isCollapsed ? 'h-6 w-6' : 'h-5 w-5'} flex-shrink-0`} />
-                    {!isCollapsed && (
-                      <span className="font-medium text-sm">{category.label}</span>
-                    )}
-                  </button>
-                );
-
-                if (isCollapsed) {
-                  return (
-                    <Tooltip key={category.id}>
-                      <TooltipTrigger asChild>
-                        {buttonContent}
-                      </TooltipTrigger>
-                      <TooltipContent side="right">
-                        <p>{category.label}</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  );
-                }
-
-                return <div key={category.id}>{buttonContent}</div>;
-              })}
-            </TooltipProvider>
-          </nav>
-
-          {/* Admin Toggle */}
-          <div className="p-4 border-t">
-            <TooltipProvider delayDuration={0}>
-              {isCollapsed ? (
-                <Tooltip>
+            if (isCollapsed) {
+              return (
+                <Tooltip key={category.id}>
                   <TooltipTrigger asChild>
-                    <button
-                      onClick={onAdminToggle}
-                      className={`
-                        w-full flex items-center justify-center px-4 py-3 rounded-lg
-                        transition-all duration-200
-                        ${isAdminMode
-                          ? 'bg-primary text-primary-foreground'
-                          : 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'
-                        }
-                      `}
-                    >
-                      <Settings className="h-6 w-6" />
-                    </button>
+                    {button}
                   </TooltipTrigger>
                   <TooltipContent side="right">
-                    <p>Admin Mode</p>
+                    <p>{category.label}</p>
                   </TooltipContent>
                 </Tooltip>
-              ) : (
-                <button
+              );
+            }
+
+            return button;
+          })}
+        </nav>
+
+        <div className="px-3 pb-4 mt-auto pt-4">
+          {isCollapsed ? (
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  variant={isAdminMode ? "secondary" : "ghost"}
+                  className="w-full justify-center px-2"
                   onClick={onAdminToggle}
-                  className={`
-                    w-full flex items-center gap-3 px-4 py-3 rounded-lg
-                    transition-all duration-200
-                    ${isAdminMode
-                      ? 'bg-primary text-primary-foreground'
-                      : 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'
-                    }
-                  `}
                 >
-                  <Settings className="h-5 w-5 flex-shrink-0" />
-                  <span className="font-medium text-sm">Admin Mode</span>
-                </button>
-              )}
-            </TooltipProvider>
-          </div>
+                  <Settings className="h-4 w-4" />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent side="right">
+                <p>Settings</p>
+              </TooltipContent>
+            </Tooltip>
+          ) : (
+            <Button
+              variant={isAdminMode ? "secondary" : "ghost"}
+              className="w-full justify-start font-normal"
+              onClick={onAdminToggle}
+            >
+              <Settings className="h-4 w-4 mr-3" />
+              Settings
+            </Button>
+          )}
         </div>
       </aside>
 
-      {/* Mobile Overlay */}
       {isOpen && (
         <div
-          className="lg:hidden fixed inset-0 bg-background/80 backdrop-blur-sm z-30"
+          className="fixed inset-0 bg-black/20 z-30 lg:hidden"
           onClick={() => setIsOpen(false)}
-          aria-hidden="true"
         />
       )}
-    </>
+    </TooltipProvider>
   );
 };
