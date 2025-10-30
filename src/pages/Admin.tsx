@@ -2,7 +2,6 @@ import { useState } from "react";
 import { AdminProvider } from "@/contexts/AdminContext";
 import { AdminHeader } from "@/components/admin/AdminHeader";
 import { AdminSidebar } from "@/components/admin/AdminSidebar";
-import { AdminPreview } from "@/components/admin/AdminPreview";
 import { NavigationSection } from "@/components/admin/sections/NavigationSection";
 import { LinkLibrarySection } from "@/components/admin/sections/LinkLibrarySection";
 import { AnnouncementsSection } from "@/components/admin/sections/AnnouncementsSection";
@@ -84,8 +83,6 @@ const Admin = () => {
               {renderSection()}
             </div>
           </main>
-
-          <AdminPreview />
         </div>
       </div>
     </AdminProvider>
