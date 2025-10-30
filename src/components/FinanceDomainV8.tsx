@@ -207,6 +207,7 @@ export const FinanceDomainV8 = () => {
   const [ownerFilter, setOwnerFilter] = useState<string>("all");
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [favorites, setFavorites] = useState<Set<string>>(new Set(mockData.filter(item => item.isFavorite).map(item => item.id)));
+  const [selectedDashboard, setSelectedDashboard] = useState<string | null>(null);
   const toggleFavorite = (id: string) => {
     setFavorites(prev => {
       const newFavorites = new Set(prev);
@@ -259,7 +260,9 @@ export const FinanceDomainV8 = () => {
     }
   };
   return <div className="p-8 lg:p-12">
-      <div className="max-w-[1800px] mx-auto">
+      <div className="max-w-[1800px] mx-auto flex gap-6">
+        {/* Left Side - Directory Table */}
+        <div className={selectedDashboard ? "w-1/2" : "w-full"}>
         {/* Header Section with Title and Info Cards */}
         <div className="mb-6 flex items-center justify-between gap-8">
           {/* Page Title & Subtitle - Left Side */}
@@ -354,7 +357,11 @@ export const FinanceDomainV8 = () => {
                   <TableCell colSpan={6} className="text-center py-12 text-muted-foreground">
                     No results found. Try adjusting your filters.
                   </TableCell>
-                </TableRow> : filteredData.map(item => <TableRow key={item.id} className="hover:bg-muted/50 cursor-pointer transition-colors">
+                </TableRow> : filteredData.map(item => <TableRow 
+                    key={item.id} 
+                    className={cn("hover:bg-muted/50 cursor-pointer transition-colors", selectedDashboard === item.id && "bg-muted/50")}
+                    onClick={() => setSelectedDashboard(item.id === "1" ? item.id : null)}
+                  >
                     <TableCell>
                       <div className="flex items-center gap-2">
                         {item.type === "Dashboard" ? <LayoutGrid className="h-4 w-4 text-foreground" /> : <Search className="h-4 w-4 text-foreground" />}
@@ -379,6 +386,31 @@ export const FinanceDomainV8 = () => {
             </TableBody>
           </Table>
         </div>
+        </div>
+
+        {/* Right Side - Dashboard Preview */}
+        {selectedDashboard === "1" && (
+          <div className="w-1/2 sticky top-8 h-fit">
+            <Card className="p-4">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-lg font-semibold">Dashboard Preview</h3>
+                <button 
+                  onClick={() => setSelectedDashboard(null)}
+                  className="text-muted-foreground hover:text-foreground"
+                >
+                  ✕
+                </button>
+              </div>
+              <div className="rounded-lg overflow-hidden border">
+                <img 
+                  src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=800&fit=crop" 
+                  alt="Dashboard Preview" 
+                  className="w-full h-auto"
+                />
+              </div>
+            </Card>
+          </div>
+        )}
       </div>
     </div>;
 };
