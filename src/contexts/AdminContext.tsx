@@ -108,7 +108,16 @@ const seedConfig: ConfigData = {
   embeds: [
     { id: "sales_dash", title: "Sales Overview", lookerDashboardId: "dash_123", domain: "Finance", subdomain: "P&L", params: { date_range: "30d" }, visibilityRoles: ["Viewer", "Editor", "Admin"] },
     { id: "inventory_dash", title: "Inventory Analysis", lookerDashboardId: "dash_456", domain: "Merchandising", subdomain: "Inventory", params: {}, visibilityRoles: ["Editor", "Admin"] },
-    { id: "customer_dash", title: "Customer Insights", lookerDashboardId: "dash_789", domain: "Customer", subdomain: "Analytics", params: {}, visibilityRoles: ["Viewer", "Editor", "Admin"] }
+    { id: "customer_dash", title: "Customer Insights", lookerDashboardId: "dash_789", domain: "Customer", subdomain: "Analytics", params: {}, visibilityRoles: ["Viewer", "Editor", "Admin"] },
+    { id: "revenue_dash", title: "Monthly Revenue Report", lookerDashboardId: "dash_234", domain: "Finance", subdomain: "Revenue", params: {}, visibilityRoles: ["Viewer", "Editor", "Admin"] },
+    { id: "budget_dash", title: "Budget vs Actuals", lookerDashboardId: "dash_345", domain: "Finance", subdomain: "Budgeting", params: {}, visibilityRoles: ["Editor", "Admin"] },
+    { id: "product_dash", title: "Product Performance", lookerDashboardId: "dash_567", domain: "Merchandising", subdomain: "Product Analytics", params: {}, visibilityRoles: ["Viewer", "Editor", "Admin"] },
+    { id: "pricing_dash", title: "Pricing Strategy Dashboard", lookerDashboardId: "dash_678", domain: "Merchandising", subdomain: "Pricing", params: {}, visibilityRoles: ["Editor", "Admin"] },
+    { id: "store_dash", title: "Store Performance Metrics", lookerDashboardId: "dash_890", domain: "Store Selling", subdomain: "Performance", params: {}, visibilityRoles: ["Viewer", "Editor", "Admin"] },
+    { id: "customer_lifetime", title: "Customer Lifetime Value", lookerDashboardId: "dash_901", domain: "Customer", subdomain: "Retention", params: {}, visibilityRoles: ["Editor", "Admin"] },
+    { id: "supply_chain", title: "Supply Chain Overview", lookerDashboardId: "dash_012", domain: "Supply Chain", subdomain: "Logistics", params: {}, visibilityRoles: ["Viewer", "Editor", "Admin"] },
+    { id: "inventory_turnover", title: "Inventory Turnover Analysis", lookerDashboardId: "dash_135", domain: "Supply Chain", subdomain: "Inventory Management", params: {}, visibilityRoles: ["Editor", "Admin"] },
+    { id: "tech_metrics", title: "Technology Performance", lookerDashboardId: "dash_246", domain: "Technology", subdomain: "Infrastructure", params: {}, visibilityRoles: ["Admin"] }
   ],
   announcement: {
     enabled: true,
