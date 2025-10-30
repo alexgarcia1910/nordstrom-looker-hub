@@ -7,6 +7,7 @@ import { FinanceDomainV8 } from "@/components/FinanceDomainV8";
 import { MerchandisingDomainV8 } from "@/components/MerchandisingDomainV8";
 import { StoreSellingDomainV8 } from "@/components/StoreSellingDomainV8";
 import { Heart, Clock, LayoutGrid, ShieldAlert, ShieldX, X } from "lucide-react";
+import { AllDashboardsExplores } from "@/components/AllDashboardsExplores";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   AlertDialog,
@@ -179,6 +180,8 @@ const V8 = () => {
                   actionHref="#"
                 />
               </div>
+
+              <AllDashboardsExplores />
             </div>
           )}
         </main>
