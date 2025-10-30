@@ -5,6 +5,7 @@ import { AdminSidebar } from "@/components/admin/AdminSidebar";
 import { NavigationSection } from "@/components/admin/sections/NavigationSection";
 import { LinkLibrarySection } from "@/components/admin/sections/LinkLibrarySection";
 import { AnnouncementsSection } from "@/components/admin/sections/AnnouncementsSection";
+import { DashboardEmbedsSection } from "@/components/admin/sections/DashboardEmbedsSection";
 
 const Admin = () => {
   const [activeSection, setActiveSection] = useState("navigation");
@@ -24,11 +25,7 @@ const Admin = () => {
           </div>
         );
       case "embeds":
-        return (
-          <div className="text-center py-12">
-            <p className="text-muted-foreground">Dashboard Embeds section coming soon</p>
-          </div>
-        );
+        return <DashboardEmbedsSection />;
       case "taxonomy":
         return (
           <div className="text-center py-12">

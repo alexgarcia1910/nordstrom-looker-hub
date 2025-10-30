@@ -15,6 +15,8 @@ export interface Embed {
   title: string;
   lookerDashboardId?: string;
   url?: string;
+  domain?: string;
+  subdomain?: string;
   params: Record<string, string>;
   visibilityRoles: string[];
 }
@@ -104,7 +106,9 @@ const seedConfig: ConfigData = {
     { id: "merch", label: "Merchandising", icon: "tag", target: "route", targetRef: "/merch", visibilityRoles: ["Viewer", "Editor", "Admin"], enabled: true },
   ],
   embeds: [
-    { id: "sales_dash", title: "Sales Overview", lookerDashboardId: "dash_123", params: { date_range: "30d" }, visibilityRoles: ["Viewer", "Editor", "Admin"] }
+    { id: "sales_dash", title: "Sales Overview", lookerDashboardId: "dash_123", domain: "Finance", subdomain: "P&L", params: { date_range: "30d" }, visibilityRoles: ["Viewer", "Editor", "Admin"] },
+    { id: "inventory_dash", title: "Inventory Analysis", lookerDashboardId: "dash_456", domain: "Merchandising", subdomain: "Inventory", params: {}, visibilityRoles: ["Editor", "Admin"] },
+    { id: "customer_dash", title: "Customer Insights", lookerDashboardId: "dash_789", domain: "Customer", subdomain: "Analytics", params: {}, visibilityRoles: ["Viewer", "Editor", "Admin"] }
   ],
   announcement: {
     enabled: true,
