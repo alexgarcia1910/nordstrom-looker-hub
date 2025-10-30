@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Eye, Save, History, Upload } from "lucide-react";
+import { Save, History, Upload } from "lucide-react";
 import { useAdmin } from "@/contexts/AdminContext";
 import { useState } from "react";
 import { PublishDialog } from "./PublishDialog";
@@ -39,16 +39,6 @@ export const AdminHeader = () => {
         </div>
 
         <div className="flex items-center gap-3">
-          <Button
-            variant="ghost"
-            size="sm"
-            className="gap-2"
-            onClick={() => window.open('/v2', '_blank')}
-          >
-            <Eye className="h-4 w-4" />
-            Preview
-          </Button>
-
           <Button
             variant="ghost"
             size="sm"
