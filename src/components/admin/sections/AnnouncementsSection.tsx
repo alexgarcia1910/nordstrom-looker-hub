@@ -86,23 +86,6 @@ export const AnnouncementsSection = () => {
         {announcement.enabled && (
           <>
             <div className="space-y-2">
-              <Label htmlFor="style">Banner Style</Label>
-              <Select
-                value={announcement.style}
-                onValueChange={(style: any) => updateAnnouncement({ style })}
-              >
-                <SelectTrigger id="style">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="info">Info (Blue)</SelectItem>
-                  <SelectItem value="warning">Warning (Yellow)</SelectItem>
-                  <SelectItem value="success">Success (Green)</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div className="space-y-2">
               <Label htmlFor="title">Title</Label>
               <Input
                 id="title"

@@ -109,8 +109,14 @@ const seedConfig: ConfigData = {
   announcement: {
     enabled: true,
     style: "info",
-    title: "3 Things to Know About Looker",
-    bullets: ["Explore vs Dashboard", "Finding Trusted Data", "Use Job Aids for help"],
+    title: "5 Things to Know About Looker",
+    bullets: [
+      "About This App: This Front Door helps you quickly access dashboards and explores across all Nordstrom domains — Finance, Merchandising, Store Selling, Supply Chain, and more",
+      "Explore vs Dashboard: Explores let you build custom queries and analyze data freely, while Dashboards display curated, pre-built visualizations.",
+      "Navigating Domains: Click a domain in the left sidebar to view its subdomains and associated dashboards.",
+      "Finding Data Quickly: Use the global search bar to find dashboards and explores by name, domain, or keyword.",
+      "Need Help: Use the Issue Escalation link in the top-right corner for support or to report data issues."
+    ],
     dismissible: true
   },
   linkLibrary: [
