@@ -15,6 +15,8 @@ interface SidebarV8Props {
   onCategorySelect: (category: string) => void;
   onAdminToggle: () => void;
   isAdminMode: boolean;
+  isCollapsed: boolean;
+  onCollapsedChange: (collapsed: boolean) => void;
 }
 
 const categories = [
@@ -28,9 +30,8 @@ const categories = [
   { id: "technology", label: "Technology", icon: Cpu },
 ];
 
-export const SidebarV8 = ({ selectedCategory, onCategorySelect, onAdminToggle, isAdminMode }: SidebarV8Props) => {
+export const SidebarV8 = ({ selectedCategory, onCategorySelect, onAdminToggle, isAdminMode, isCollapsed, onCollapsedChange }: SidebarV8Props) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isCollapsed, setIsCollapsed] = useState(false);
 
   return (
     <TooltipProvider>
@@ -46,7 +47,6 @@ export const SidebarV8 = ({ selectedCategory, onCategorySelect, onAdminToggle, i
       <aside
         className={cn(
           "fixed left-0 top-0 h-screen border-r border-border bg-background smooth-transition z-40 flex flex-col",
-          "lg:relative lg:h-screen lg:translate-x-0",
           isCollapsed ? "w-20" : "w-64",
           isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
         )}
@@ -82,7 +82,7 @@ export const SidebarV8 = ({ selectedCategory, onCategorySelect, onAdminToggle, i
             variant="ghost"
             size="icon"
             className={cn("hidden lg:flex", isCollapsed && "absolute -right-3 top-4")}
-            onClick={() => setIsCollapsed(!isCollapsed)}
+            onClick={() => onCollapsedChange(!isCollapsed)}
           >
             {isCollapsed ? (
               <ChevronRight className="h-4 w-4" />

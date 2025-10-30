@@ -42,6 +42,7 @@ const V8 = () => {
   const [selectedCategory, setSelectedCategory] = useState("home");
   const [isAdminMode, setIsAdminMode] = useState(false);
   const [showSupplyChainModal, setShowSupplyChainModal] = useState(false);
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
 
   const handleCategorySelect = (category: string) => {
     if (category === "supply-chain") {
@@ -65,12 +66,14 @@ const V8 = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background flex">
+    <div className="min-h-screen bg-background">
       <SidebarV8 
         selectedCategory={selectedCategory}
         onCategorySelect={handleCategorySelect}
         onAdminToggle={() => setIsAdminMode(!isAdminMode)}
         isAdminMode={isAdminMode}
+        isCollapsed={isSidebarCollapsed}
+        onCollapsedChange={setIsSidebarCollapsed}
       />
       
       <AlertDialog open={showSupplyChainModal} onOpenChange={setShowSupplyChainModal}>
@@ -102,7 +105,7 @@ const V8 = () => {
         </AlertDialogContent>
       </AlertDialog>
       
-      <div className="flex-1 flex flex-col">
+      <div className={`flex flex-col min-h-screen transition-all duration-300 ${isSidebarCollapsed ? 'lg:ml-20' : 'lg:ml-64'}`}>
         <NavbarV8 />
         
         <main className="flex-1">
