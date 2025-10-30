@@ -106,7 +106,19 @@ const V8 = () => {
         <NavbarV8 />
         
         <main className="flex-1">
-          {selectedCategory === "finance" ? (
+          {selectedCategory === "home-v2" ? (
+            <div className="p-8 lg:p-12">
+              <div className="mb-8">
+                <h1 className="text-4xl font-bold mb-2 text-foreground">
+                  Home v2
+                </h1>
+                <p className="text-base text-muted-foreground">
+                  Access all dashboards and explores across Nordstrom analytics domains.
+                </p>
+              </div>
+              <AllDashboardsExplores />
+            </div>
+          ) : selectedCategory === "finance" ? (
             <FinanceDomainV8 />
           ) : selectedCategory === "merchandising" ? (
             <MerchandisingDomainV8 />
@@ -181,7 +193,6 @@ const V8 = () => {
                 />
               </div>
 
-              <AllDashboardsExplores />
             </div>
           )}
         </main>
