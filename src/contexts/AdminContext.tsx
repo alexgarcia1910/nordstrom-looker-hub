@@ -114,8 +114,18 @@ const seedConfig: ConfigData = {
     dismissible: true
   },
   linkLibrary: [
-    { id: "train", name: "Training & Resources", url: "https://docs.example.com/training", icon: "book", domainTag: "Technology", visibilityRoles: ["Viewer", "Editor", "Admin"] },
-    { id: "onboard", name: "Access & Onboarding", url: "https://docs.example.com/onboarding", icon: "compass", domainTag: "General", visibilityRoles: ["Viewer", "Editor", "Admin"] }
+    { id: "customer-training", name: "Training & Resources", url: "https://docs.example.com/customer/training", icon: "BookOpen", domainTag: "Customer", visibilityRoles: ["Viewer", "Editor", "Admin"] },
+    { id: "customer-onboarding", name: "Access and Onboarding", url: "https://docs.example.com/customer/onboarding", icon: "LogIn", domainTag: "Customer", visibilityRoles: ["Viewer", "Editor", "Admin"] },
+    { id: "finance-training", name: "Training & Resources", url: "https://docs.example.com/finance/training", icon: "BookOpen", domainTag: "Finance", visibilityRoles: ["Viewer", "Editor", "Admin"] },
+    { id: "finance-onboarding", name: "Access and Onboarding", url: "https://docs.example.com/finance/onboarding", icon: "LogIn", domainTag: "Finance", visibilityRoles: ["Viewer", "Editor", "Admin"] },
+    { id: "merchandising-training", name: "Training & Resources", url: "https://docs.example.com/merchandising/training", icon: "BookOpen", domainTag: "Merchandising", visibilityRoles: ["Viewer", "Editor", "Admin"] },
+    { id: "merchandising-onboarding", name: "Access and Onboarding", url: "https://docs.example.com/merchandising/onboarding", icon: "LogIn", domainTag: "Merchandising", visibilityRoles: ["Viewer", "Editor", "Admin"] },
+    { id: "store-selling-training", name: "Training & Resources", url: "https://docs.example.com/store-selling/training", icon: "BookOpen", domainTag: "Store Selling", visibilityRoles: ["Viewer", "Editor", "Admin"] },
+    { id: "store-selling-onboarding", name: "Access and Onboarding", url: "https://docs.example.com/store-selling/onboarding", icon: "LogIn", domainTag: "Store Selling", visibilityRoles: ["Viewer", "Editor", "Admin"] },
+    { id: "supply-chain-training", name: "Training & Resources", url: "https://docs.example.com/supply-chain/training", icon: "BookOpen", domainTag: "Supply Chain", visibilityRoles: ["Viewer", "Editor", "Admin"] },
+    { id: "supply-chain-onboarding", name: "Access and Onboarding", url: "https://docs.example.com/supply-chain/onboarding", icon: "LogIn", domainTag: "Supply Chain", visibilityRoles: ["Viewer", "Editor", "Admin"] },
+    { id: "technology-training", name: "Training & Resources", url: "https://docs.example.com/technology/training", icon: "BookOpen", domainTag: "Technology", visibilityRoles: ["Viewer", "Editor", "Admin"] },
+    { id: "technology-onboarding", name: "Access and Onboarding", url: "https://docs.example.com/technology/onboarding", icon: "LogIn", domainTag: "Technology", visibilityRoles: ["Viewer", "Editor", "Admin"] }
   ],
   domains: [
     { id: "all", label: "All Domains", description: "" },
