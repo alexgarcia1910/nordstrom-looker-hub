@@ -122,20 +122,20 @@ const V8 = () => {
           ) : selectedCategory === "technology" ? (
             <TechnologyDomainV8 />
           ) : (
-            <div className="p-8 lg:p-12">
+            <div className="p-4 sm:p-6 lg:p-12">
               {/* Welcome Banner */}
-              <div className="mb-8 text-center">
-                <h1 className="text-4xl font-bold mb-2 text-foreground">
+              <div className="mb-6 lg:mb-8 text-center">
+                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-2 text-foreground">
                   Welcome to Looker!
                 </h1>
-                <p className="text-base text-muted-foreground">
+                <p className="text-sm sm:text-base text-muted-foreground px-4">
                   Your central hub for all analytics dashboards at Nordstrom.
                 </p>
               </div>
 
               <InfoBannerV8 />
               
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-12">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 mb-8 lg:mb-12">
                 <ActivityCard
                   icon={Heart}
                   title="Favorites"

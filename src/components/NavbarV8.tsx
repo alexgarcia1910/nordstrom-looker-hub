@@ -98,9 +98,9 @@ export const NavbarV8 = () => {
 
   return (
     <nav className="border-b border-border bg-background">
-      <div className="flex items-center justify-between px-6 py-4">
-        <div className="relative flex-1 max-w-3xl mr-4" ref={dropdownRef}>
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground z-10" />
+      <div className="flex items-center justify-between px-3 sm:px-6 py-3 sm:py-4">
+        <div className="relative flex-1 max-w-3xl mr-2 sm:mr-4" ref={dropdownRef}>
+          <Search className="absolute left-2 sm:left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground z-10" />
           <Input
             ref={inputRef}
             type="text"
@@ -108,7 +108,7 @@ export const NavbarV8 = () => {
             value={searchQuery}
             onChange={(e) => handleSearchChange(e.target.value)}
             onKeyDown={handleKeyDown}
-            className="pl-9 h-9 w-full rounded-full border-border"
+            className="pl-8 sm:pl-9 h-9 w-full rounded-full border-border text-sm"
           />
           
           {showDropdown && filteredResults.length > 0 && (
@@ -150,16 +150,16 @@ export const NavbarV8 = () => {
           )}
         </div>
         
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2 sm:gap-4">
           <Button
             variant="ghost"
             size="sm"
-            className="text-sm font-normal"
+            className="text-xs sm:text-sm font-normal px-2 sm:px-4"
             asChild
           >
             <a href="https://nordstrom.com" target="_blank" rel="noopener noreferrer">
-              <AlertCircle className="mr-2 h-4 w-4" />
-              Issue Escalation
+              <AlertCircle className="h-4 w-4 sm:mr-2" />
+              <span className="hidden sm:inline">Issue Escalation</span>
             </a>
           </Button>
         </div>
