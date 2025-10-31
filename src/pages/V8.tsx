@@ -109,52 +109,7 @@ const V8 = () => {
         <NavbarV8 />
         
         <main className="flex-1">
-          {selectedCategory === "home-v2" ? (
-            <div className="p-8 lg:p-12">
-              {/* Welcome Banner */}
-              <div className="mb-8 text-center">
-                <h1 className="text-4xl font-bold mb-2 text-foreground">
-                  Welcome to Looker!
-                </h1>
-                <p className="text-base text-muted-foreground">
-                  Your central hub for all analytics dashboards at Nordstrom.
-                </p>
-              </div>
-
-              <InfoBannerV8 />
-              
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-12">
-                <ActivityCard
-                  icon={Heart}
-                  title="Favorites"
-                  description="Your most frequently used dashboards and explores."
-                  items={favoritesData}
-                  actionLabel="View All Favorites"
-                  actionHref="#"
-                />
-                
-                <ActivityCard
-                  icon={Clock}
-                  title="Recently Viewed"
-                  description="Quickly access the dashboards and explores you opened most recently."
-                  items={recentlyViewedData}
-                  actionLabel="View History"
-                  actionHref="#"
-                />
-                
-                <ActivityCard
-                  icon={LayoutGrid}
-                  title="Boards"
-                  description="View or organize collections of dashboards and reports grouped by topic."
-                  items={boardsData}
-                  actionLabel="View All Boards"
-                  actionHref="#"
-                />
-              </div>
-
-              <AllDashboardsExplores />
-            </div>
-          ) : selectedCategory === "finance" ? (
+          {selectedCategory === "finance" ? (
             <FinanceDomainV8 />
           ) : selectedCategory === "merchandising" ? (
             <MerchandisingDomainV8 />
