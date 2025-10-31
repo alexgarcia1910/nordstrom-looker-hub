@@ -3,9 +3,9 @@ import { Heart, LayoutGrid, Search, BookOpen, GraduationCap, ExternalLink } from
 import { Badge } from "./ui/badge";
 import { Card } from "./ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
-import { Button } from "./ui/button";
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "./ui/pagination";
 import { cn } from "@/lib/utils";
+
 interface DirectoryItem {
   id: string;
   type: "Dashboard" | "Explore";
@@ -14,200 +14,156 @@ interface DirectoryItem {
   subdomain: string;
   description: string;
   status: "Operational" | "Warning" | "Critical";
-  environment: "Production" | "QA" | "Dev" | "Sandbox" | "Archived";
-  access: "Viewer" | "Editor" | "Admin";
   owner: string;
   isFavorite: boolean;
 }
-const mockData: DirectoryItem[] = [{
-  id: "1",
-  type: "Dashboard",
-  name: "Monthly Budget Performance",
-  domain: "Finance",
-  subdomain: "Budgeting & Forecasting",
-  description: "Track monthly budget vs actuals across all departments",
-  status: "Operational",
-  environment: "Production",
-  access: "Viewer",
-  owner: "Finance Analytics Team",
-  isFavorite: false
-}, {
-  id: "2",
-  type: "Explore",
-  name: "Budget Details Explore",
-  domain: "Finance",
-  subdomain: "Budgeting & Forecasting",
-  description: "Deep dive into budget line items and allocation details",
-  status: "Warning",
-  environment: "Production",
-  access: "Editor",
-  owner: "Finance Analytics Team",
-  isFavorite: true
-}, {
-  id: "3",
-  type: "Dashboard",
-  name: "OPEX Variance by Region",
-  domain: "Finance",
-  subdomain: "Budgeting & Forecasting",
-  description: "Regional operating expense variance analysis dashboard",
-  status: "Critical",
-  environment: "Production",
-  access: "Viewer",
-  owner: "Regional Finance",
-  isFavorite: false
-}, {
-  id: "4",
-  type: "Dashboard",
-  name: "Headcount Forecast FY25",
-  domain: "Finance",
-  subdomain: "Budgeting & Forecasting",
-  description: "Full-year headcount planning and budget allocation",
-  status: "Warning",
-  environment: "QA",
-  access: "Editor",
-  owner: "HR Finance Team",
-  isFavorite: true
-}, {
-  id: "5",
-  type: "Explore",
-  name: "Cost Center Analysis Explore",
-  domain: "Finance",
-  subdomain: "Budgeting & Forecasting",
-  description: "Analyze spending patterns by cost center and department",
-  status: "Operational",
-  environment: "Production",
-  access: "Viewer",
-  owner: "Finance Analytics Team",
-  isFavorite: false
-}, {
-  id: "6",
-  type: "Dashboard",
-  name: "Financial Performance Dashboard",
-  domain: "Finance",
-  subdomain: "Performance & KPIs",
-  description: "Tracks financial performance metrics and KPI trends across divisions",
-  status: "Operational",
-  environment: "Production",
-  access: "Viewer",
-  owner: "Finance Analytics Team",
-  isFavorite: false
-}, {
-  id: "7",
-  type: "Dashboard",
-  name: "Capital Expenditure Tracking",
-  domain: "Finance",
-  subdomain: "Budgeting & Forecasting",
-  description: "Monitor capital projects and spending against budget",
-  status: "Operational",
-  environment: "Production",
-  access: "Editor",
-  owner: "Finance Analytics Team",
-  isFavorite: true
-}, {
-  id: "8",
-  type: "Explore",
-  name: "Departmental Budget Explore",
-  domain: "Finance",
-  subdomain: "Budgeting & Forecasting",
-  description: "Explore budget data by department and time period",
-  status: "Warning",
-  environment: "Production",
-  access: "Viewer",
-  owner: "Finance Analytics Team",
-  isFavorite: false
-}, {
-  id: "9",
-  type: "Dashboard",
-  name: "Accounts Payable Overview",
-  domain: "Finance",
-  subdomain: "AP & AR",
-  description: "Comprehensive view of accounts payable aging and trends",
-  status: "Operational",
-  environment: "Production",
-  access: "Viewer",
-  owner: "AP Team",
-  isFavorite: false
-}, {
-  id: "10",
-  type: "Dashboard",
-  name: "Accounts Receivable Summary",
-  domain: "Finance",
-  subdomain: "AP & AR",
-  description: "Track receivables, aging, and collection metrics",
-  status: "Critical",
-  environment: "Production",
-  access: "Editor",
-  owner: "AR Team",
-  isFavorite: true
-}, {
-  id: "11",
-  type: "Dashboard",
-  name: "Profitability by Product Line",
-  domain: "Finance",
-  subdomain: "Profitability Analysis",
-  description: "Detailed profitability metrics segmented by product",
-  status: "Operational",
-  environment: "Production",
-  access: "Viewer",
-  owner: "Finance Analytics Team",
-  isFavorite: false
-}, {
-  id: "12",
-  type: "Explore",
-  name: "Margin Analysis Explore",
-  domain: "Finance",
-  subdomain: "Profitability Analysis",
-  description: "Interactive exploration of margin trends and drivers",
-  status: "Warning",
-  environment: "Production",
-  access: "Viewer",
-  owner: "Finance Analytics Team",
-  isFavorite: false
-}, {
-  id: "13",
-  type: "Dashboard",
-  name: "Budget Utilization Metrics",
-  domain: "Finance",
-  subdomain: "Budgeting & Forecasting",
-  description: "Track budget utilization rates across all cost centers",
-  status: "Critical",
-  environment: "Production",
-  access: "Viewer",
-  owner: "Legacy Systems",
-  isFavorite: false
-}, {
-  id: "14",
-  type: "Explore",
-  name: "Revenue Trend Explore",
-  domain: "Finance",
-  subdomain: "Performance & KPIs",
-  description: "Explore revenue patterns and trends across time periods",
-  status: "Operational",
-  environment: "Production",
-  access: "Viewer",
-  owner: "Finance Analytics Team",
-  isFavorite: false
-}, {
-  id: "15",
-  type: "Dashboard",
-  name: "Cash Flow Summary",
-  domain: "Finance",
-  subdomain: "Performance & KPIs",
-  description: "Daily and monthly cash flow analysis with forecasting",
-  status: "Warning",
-  environment: "QA",
-  access: "Editor",
-  owner: "Treasury Team",
-  isFavorite: false
-}];
-export const FinanceDomainV8 = () => {
+
+const mockData: DirectoryItem[] = [
+  {
+    id: "1",
+    type: "Dashboard",
+    name: "Customer Lifetime Value Dashboard",
+    domain: "Customer",
+    subdomain: "Customer Analytics",
+    description: "Track CLV, retention rates, and customer cohort performance over time.",
+    status: "Operational",
+    owner: "Customer Insights Team",
+    isFavorite: false
+  },
+  {
+    id: "2",
+    type: "Explore",
+    name: "Customer Segmentation Explore",
+    domain: "Customer",
+    subdomain: "Customer Analytics",
+    description: "Analyze customer segments by demographics, behavior, and purchase patterns.",
+    status: "Operational",
+    owner: "Customer Insights Team",
+    isFavorite: false
+  },
+  {
+    id: "3",
+    type: "Dashboard",
+    name: "Loyalty Program Performance",
+    domain: "Customer",
+    subdomain: "Loyalty & Engagement",
+    description: "Monitor loyalty program enrollment, engagement, and redemption metrics.",
+    status: "Warning",
+    owner: "Loyalty Team",
+    isFavorite: false
+  },
+  {
+    id: "4",
+    type: "Dashboard",
+    name: "Customer Satisfaction Scores",
+    domain: "Customer",
+    subdomain: "Experience & Feedback",
+    description: "Track NPS, CSAT, and customer feedback trends across all touchpoints.",
+    status: "Operational",
+    owner: "CX Analytics Team",
+    isFavorite: false
+  },
+  {
+    id: "5",
+    type: "Explore",
+    name: "Purchase Behavior Explore",
+    domain: "Customer",
+    subdomain: "Customer Analytics",
+    description: "Deep dive into purchase frequency, basket size, and channel preferences.",
+    status: "Operational",
+    owner: "Customer Insights Team",
+    isFavorite: false
+  },
+  {
+    id: "6",
+    type: "Dashboard",
+    name: "Customer Churn Analysis",
+    domain: "Customer",
+    subdomain: "Retention & Churn",
+    description: "Identify at-risk customers and analyze churn drivers and patterns.",
+    status: "Critical",
+    owner: "Retention Team",
+    isFavorite: false
+  },
+  {
+    id: "7",
+    type: "Dashboard",
+    name: "Email Campaign Performance",
+    domain: "Customer",
+    subdomain: "Marketing & Campaigns",
+    description: "Track email open rates, click-through rates, and conversion metrics.",
+    status: "Operational",
+    owner: "Marketing Analytics Team",
+    isFavorite: false
+  },
+  {
+    id: "8",
+    type: "Explore",
+    name: "Customer Journey Explore",
+    domain: "Customer",
+    subdomain: "Experience & Feedback",
+    description: "Analyze customer touchpoints and journey paths across channels.",
+    status: "Warning",
+    owner: "CX Analytics Team",
+    isFavorite: false
+  },
+  {
+    id: "9",
+    type: "Dashboard",
+    name: "Personalization Effectiveness",
+    domain: "Customer",
+    subdomain: "Marketing & Campaigns",
+    description: "Measure impact of personalized recommendations and offers.",
+    status: "Operational",
+    owner: "Marketing Analytics Team",
+    isFavorite: false
+  },
+  {
+    id: "10",
+    type: "Dashboard",
+    name: "Customer Acquisition Costs",
+    domain: "Customer",
+    subdomain: "Customer Analytics",
+    description: "Track CAC by channel and compare against customer lifetime value.",
+    status: "Operational",
+    owner: "Customer Insights Team",
+    isFavorite: false
+  },
+  {
+    id: "11",
+    type: "Explore",
+    name: "Loyalty Tier Analysis Explore",
+    domain: "Customer",
+    subdomain: "Loyalty & Engagement",
+    description: "Explore spending patterns and benefits usage by loyalty tier.",
+    status: "Operational",
+    owner: "Loyalty Team",
+    isFavorite: false
+  },
+  {
+    id: "12",
+    type: "Dashboard",
+    name: "Customer Feedback Dashboard",
+    domain: "Customer",
+    subdomain: "Experience & Feedback",
+    description: "Aggregate and analyze customer feedback from surveys and reviews.",
+    status: "Warning",
+    owner: "CX Analytics Team",
+    isFavorite: false
+  }
+];
+
+export const CustomerDomainV8 = () => {
   const [typeFilter, setTypeFilter] = useState<string>("all");
   const [subdomainFilter, setSubdomainFilter] = useState<string>("all");
   const [ownerFilter, setOwnerFilter] = useState<string>("all");
   const [statusFilter, setStatusFilter] = useState<string>("all");
-  const [favorites, setFavorites] = useState<Set<string>>(new Set(mockData.filter(item => item.isFavorite).map(item => item.id)));
+  const [favorites, setFavorites] = useState<Set<string>>(
+    new Set(mockData.filter(item => item.isFavorite).map(item => item.id))
+  );
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
+
   const toggleFavorite = (id: string) => {
     setFavorites(prev => {
       const newFavorites = new Set(prev);
@@ -222,8 +178,8 @@ export const FinanceDomainV8 = () => {
 
   // Get unique values for filters
   const uniqueOwners = Array.from(new Set(mockData.map(item => item.owner))).sort();
-  const uniqueSubdomains = Array.from(new Set(mockData.map(item => item.subdomain))).sort();
-  
+  const uniqueSubdomains = ["Customer Analytics", "Loyalty & Engagement", "Experience & Feedback", "Marketing & Campaigns", "Retention & Churn"];
+
   const filteredData = mockData.filter(item => {
     const matchesType = typeFilter === "all" || item.type === typeFilter;
     const matchesSubdomain = subdomainFilter === "all" || item.subdomain === subdomainFilter;
@@ -237,18 +193,7 @@ export const FinanceDomainV8 = () => {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const paginatedData = filteredData.slice(startIndex, endIndex);
-  const getStatusBadgeColor = (status: string) => {
-    switch (status) {
-      case "Operational":
-        return "bg-green-50 text-green-700 border-green-200";
-      case "Warning":
-        return "bg-yellow-50 text-yellow-700 border-yellow-200";
-      case "Critical":
-        return "bg-red-50 text-red-700 border-red-200";
-      default:
-        return "bg-gray-50 text-gray-700 border-gray-200";
-    }
-  };
+
   const getStatusColor = (status: string) => {
     switch (status) {
       case "Operational":
@@ -267,27 +212,31 @@ export const FinanceDomainV8 = () => {
       <div className="max-w-[1800px] mx-auto">
         {/* Header Section with Title and Info Cards */}
         <div className="mb-6 flex items-center justify-between gap-8">
-          {/* Page Title & Subtitle - Left Side */}
           <div>
-            <h2 className="text-2xl font-semibold text-foreground mb-2">Finance Data Directory</h2>
-            <p className="text-sm text-muted-foreground">Browse dashboards and explores across all Finance subdomains.</p>
+            <h2 className="text-2xl font-semibold text-foreground mb-2">Customer Data Directory</h2>
+            <p className="text-sm text-muted-foreground">
+              Browse dashboards and explores for customer insights, loyalty, and engagement.
+            </p>
           </div>
 
-          {/* Info Cards - Right Side */}
           <div className="flex gap-4 flex-shrink-0">
             <Card className="p-4 flex items-center gap-3 hover:shadow-md transition-shadow cursor-pointer max-w-sm">
               <BookOpen className="h-5 w-5 text-foreground flex-shrink-0" />
               <div>
                 <h3 className="font-semibold text-sm text-foreground">Access & Onboarding</h3>
-                <p className="text-xs text-muted-foreground">Finance setup guides and onboarding resources.</p>
+                <p className="text-xs text-muted-foreground">
+                  Customer analytics setup guides and resources.
+                </p>
               </div>
             </Card>
-            
+
             <Card className="p-4 flex items-center gap-3 hover:shadow-md transition-shadow cursor-pointer max-w-sm">
               <GraduationCap className="h-5 w-5 text-foreground flex-shrink-0" />
               <div>
                 <h3 className="font-semibold text-sm text-foreground">Training & Resources</h3>
-                <p className="text-xs text-muted-foreground">Learn best practices and access training material.</p>
+                <p className="text-xs text-muted-foreground">
+                  Learn best practices for customer data analysis.
+                </p>
               </div>
             </Card>
           </div>
@@ -313,7 +262,11 @@ export const FinanceDomainV8 = () => {
               </SelectTrigger>
               <SelectContent className="bg-card z-50">
                 <SelectItem value="all">All Subdomains</SelectItem>
-                {uniqueSubdomains.map(subdomain => <SelectItem key={subdomain} value={subdomain}>{subdomain}</SelectItem>)}
+                {uniqueSubdomains.map(subdomain => (
+                  <SelectItem key={subdomain} value={subdomain}>
+                    {subdomain}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
 
@@ -323,7 +276,11 @@ export const FinanceDomainV8 = () => {
               </SelectTrigger>
               <SelectContent className="bg-card z-50">
                 <SelectItem value="all">All Owners</SelectItem>
-                {uniqueOwners.map(owner => <SelectItem key={owner} value={owner}>{owner}</SelectItem>)}
+                {uniqueOwners.map(owner => (
+                  <SelectItem key={owner} value={owner}>
+                    {owner}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
 
