@@ -298,10 +298,10 @@ export const CustomerDomainV8 = () => {
           </div>
         </div>
 
-        {/* Card Grid Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
+        {/* Card Layout */}
+        <div className="space-y-4 mb-6">
           {paginatedData.length === 0 ? (
-            <div className="col-span-2 text-center py-12 text-muted-foreground">
+            <div className="text-center py-12 text-muted-foreground">
               No results found. Try adjusting your filters.
             </div>
           ) : (

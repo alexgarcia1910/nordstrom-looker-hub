@@ -237,10 +237,10 @@ export const StoreSellingDomainV8 = () => {
           </div>
         </div>
 
-        {/* Card Grid Layout - Two cards per row */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        {/* Card Layout */}
+        <div className="space-y-4">
           {filteredData.length === 0 ? (
-            <div className="col-span-2 text-center py-12 text-muted-foreground">
+            <div className="text-center py-12 text-muted-foreground">
               No results found. Try adjusting your filters.
             </div>
           ) : (
