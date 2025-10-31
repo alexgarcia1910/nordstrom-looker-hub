@@ -27,14 +27,14 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Index />} />
+          <Route path="/" element={<V8 />} />
           <Route path="/v2" element={<V2 />} />
           <Route path="/v3" element={<V3 />} />
           <Route path="/v4" element={<V4 />} />
           <Route path="/v5" element={<V5 />} />
           <Route path="/v6" element={<V6 />} />
           <Route path="/v7" element={<V7 />} />
-          <Route path="/v8" element={<V8 />} />
+          <Route path="/v8" element={<Index />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/navigation-search" element={<NavigationSearch />} />
           <Route path="/finance" element={<FinanceHub />} />
