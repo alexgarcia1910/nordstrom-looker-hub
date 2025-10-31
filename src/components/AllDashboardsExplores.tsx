@@ -77,9 +77,6 @@ export const AllDashboardsExplores = () => {
     }
   };
 
-  const domains = ["All", ...Array.from(new Set(allAssets.map(a => a.domain)))];
-  const subdomains = ["All", ...Array.from(new Set(allAssets.map(a => a.subdomain)))];
-  const owners = ["All", ...Array.from(new Set(allAssets.map(a => a.owner)))];
 
   return (
     <div className="mt-12 border-t border-border pt-12">
@@ -102,11 +99,12 @@ export const AllDashboardsExplores = () => {
       <div className="flex flex-wrap gap-3 mb-6">
         <Select value={domainFilter} onValueChange={setDomainFilter}>
           <SelectTrigger className="w-[180px] bg-background">
-            <SelectValue placeholder="Domain" />
+            <SelectValue placeholder="All Domains" />
           </SelectTrigger>
-          <SelectContent className="bg-popover">
-            {domains.map((domain) => (
-              <SelectItem key={domain} value={domain.toLowerCase().replace(" ", "-")}>
+          <SelectContent className="bg-popover z-50">
+            <SelectItem value="all">All Domains</SelectItem>
+            {Array.from(new Set(allAssets.map(a => a.domain))).map((domain) => (
+              <SelectItem key={domain} value={domain}>
                 {domain}
               </SelectItem>
             ))}
@@ -115,11 +113,12 @@ export const AllDashboardsExplores = () => {
 
         <Select value={subdomainFilter} onValueChange={setSubdomainFilter}>
           <SelectTrigger className="w-[180px] bg-background">
-            <SelectValue placeholder="Subdomain" />
+            <SelectValue placeholder="All Subdomains" />
           </SelectTrigger>
-          <SelectContent className="bg-popover">
-            {subdomains.map((subdomain) => (
-              <SelectItem key={subdomain} value={subdomain.toLowerCase().replace(/\s+/g, "-")}>
+          <SelectContent className="bg-popover z-50">
+            <SelectItem value="all">All Subdomains</SelectItem>
+            {Array.from(new Set(allAssets.map(a => a.subdomain))).map((subdomain) => (
+              <SelectItem key={subdomain} value={subdomain}>
                 {subdomain}
               </SelectItem>
             ))}
@@ -128,10 +127,10 @@ export const AllDashboardsExplores = () => {
 
         <Select value={typeFilter} onValueChange={setTypeFilter}>
           <SelectTrigger className="w-[180px] bg-background">
-            <SelectValue placeholder="Type" />
+            <SelectValue placeholder="All Types" />
           </SelectTrigger>
-          <SelectContent className="bg-popover">
-            <SelectItem value="all">All</SelectItem>
+          <SelectContent className="bg-popover z-50">
+            <SelectItem value="all">All Types</SelectItem>
             <SelectItem value="Dashboard">Dashboard</SelectItem>
             <SelectItem value="Explore">Explore</SelectItem>
           </SelectContent>
@@ -139,10 +138,10 @@ export const AllDashboardsExplores = () => {
 
         <Select value={statusFilter} onValueChange={setStatusFilter}>
           <SelectTrigger className="w-[180px] bg-background">
-            <SelectValue placeholder="Status" />
+            <SelectValue placeholder="All Status" />
           </SelectTrigger>
-          <SelectContent className="bg-popover">
-            <SelectItem value="all">All</SelectItem>
+          <SelectContent className="bg-popover z-50">
+            <SelectItem value="all">All Status</SelectItem>
             <SelectItem value="Operational">Operational</SelectItem>
             <SelectItem value="Warning">Warning</SelectItem>
             <SelectItem value="Critical">Critical</SelectItem>
@@ -151,11 +150,12 @@ export const AllDashboardsExplores = () => {
 
         <Select value={ownerFilter} onValueChange={setOwnerFilter}>
           <SelectTrigger className="w-[180px] bg-background">
-            <SelectValue placeholder="Owner" />
+            <SelectValue placeholder="All Owners" />
           </SelectTrigger>
-          <SelectContent className="bg-popover">
-            {owners.map((owner) => (
-              <SelectItem key={owner} value={owner.toLowerCase().replace(/\s+/g, "-")}>
+          <SelectContent className="bg-popover z-50">
+            <SelectItem value="all">All Owners</SelectItem>
+            {Array.from(new Set(allAssets.map(a => a.owner))).map((owner) => (
+              <SelectItem key={owner} value={owner}>
                 {owner}
               </SelectItem>
             ))}
