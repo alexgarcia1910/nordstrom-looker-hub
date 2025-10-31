@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { LayoutGrid, Search, ChevronRight } from "lucide-react";
+import { LayoutGrid, Search, Heart, ExternalLink } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -7,15 +7,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 const allAssets = [
   { type: "Dashboard", name: "Sales Performance Dashboard", domain: "Finance", subdomain: "Performance & KPIs", status: "Operational", owner: "Finance Analytics Team" },
@@ -38,6 +33,10 @@ export const AllDashboardsExplores = () => {
   const [typeFilter, setTypeFilter] = useState("all");
   const [statusFilter, setStatusFilter] = useState("all");
   const [ownerFilter, setOwnerFilter] = useState("all");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [favorites, setFavorites] = useState<Set<number>>(new Set());
+
+  const itemsPerPage = 10;
 
   const filteredAssets = allAssets.filter((asset) => {
     if (domainFilter !== "all" && asset.domain !== domainFilter) return false;
@@ -48,16 +47,33 @@ export const AllDashboardsExplores = () => {
     return true;
   });
 
+  const totalPages = Math.ceil(filteredAssets.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const paginatedAssets = filteredAssets.slice(startIndex, endIndex);
+
+  const toggleFavorite = (index: number) => {
+    setFavorites(prev => {
+      const newFavorites = new Set(prev);
+      if (newFavorites.has(index)) {
+        newFavorites.delete(index);
+      } else {
+        newFavorites.add(index);
+      }
+      return newFavorites;
+    });
+  };
+
   const getStatusColor = (status: string) => {
     switch (status) {
       case "Operational":
-        return "bg-green-100 text-green-800 hover:bg-green-100";
+        return "bg-green-50 text-green-700 border-green-200";
       case "Warning":
-        return "bg-yellow-100 text-yellow-800 hover:bg-yellow-100";
+        return "bg-yellow-50 text-yellow-700 border-yellow-200";
       case "Critical":
-        return "bg-red-100 text-red-800 hover:bg-red-100";
+        return "bg-red-50 text-red-700 border-red-200";
       default:
-        return "bg-gray-100 text-gray-800 hover:bg-gray-100";
+        return "bg-gray-50 text-gray-700 border-gray-200";
     }
   };
 
@@ -147,60 +163,120 @@ export const AllDashboardsExplores = () => {
         </Select>
       </div>
 
-      {/* Table */}
-      <div className="rounded-lg border border-border bg-card overflow-hidden">
-        <Table>
-          <TableHeader>
-            <TableRow className="bg-muted/50 hover:bg-muted/50">
-              <TableHead className="font-semibold">Type</TableHead>
-              <TableHead className="font-semibold">Name</TableHead>
-              <TableHead className="font-semibold">Domain</TableHead>
-              <TableHead className="font-semibold">Subdomain</TableHead>
-              <TableHead className="font-semibold">Status</TableHead>
-              <TableHead className="font-semibold">Owner</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {filteredAssets.slice(0, 12).map((asset, index) => (
-              <TableRow
-                key={index}
-                className="cursor-pointer hover:bg-muted/50 transition-colors h-[72px]"
-              >
-                <TableCell>
-                  <div className="flex items-center gap-2">
+      {/* Card View */}
+      <div className="space-y-4">
+        {paginatedAssets.length === 0 ? (
+          <div className="text-center py-12 text-muted-foreground">
+            No results found. Try adjusting your filters.
+          </div>
+        ) : (
+          paginatedAssets.map((asset, index) => (
+            <Card
+              key={startIndex + index}
+              className="p-6 hover:shadow-md transition-all cursor-pointer group relative"
+            >
+              <div className="flex items-start justify-between gap-4">
+                {/* Left side - Icon and Content */}
+                <div className="flex items-start gap-4 flex-1">
+                  {/* Icon */}
+                  <div className="mt-1">
                     {asset.type === "Dashboard" ? (
-                      <LayoutGrid className="h-4 w-4 text-muted-foreground" />
+                      <LayoutGrid className="h-5 w-5 text-foreground" />
                     ) : (
-                      <Search className="h-4 w-4 text-muted-foreground" />
+                      <Search className="h-5 w-5 text-foreground" />
                     )}
-                    <span className="text-sm">{asset.type}</span>
                   </div>
-                </TableCell>
-                <TableCell className="font-medium">{asset.name}</TableCell>
-                <TableCell className="text-muted-foreground">{asset.domain}</TableCell>
-                <TableCell className="text-muted-foreground">{asset.subdomain}</TableCell>
-                <TableCell>
-                  <Badge variant="secondary" className={getStatusColor(asset.status)}>
+
+                  {/* Content */}
+                  <div className="flex-1">
+                    <h3 className="text-lg font-semibold text-foreground mb-2">
+                      {asset.name}
+                    </h3>
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground mb-3">
+                      <span>{asset.domain}</span>
+                      <span>/</span>
+                      <span>{asset.subdomain}</span>
+                      <span>|</span>
+                      <span>{asset.owner}</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Right side - Status Badge and Actions */}
+                <div className="flex items-start gap-3">
+                  <Badge
+                    variant="outline"
+                    className={cn("text-xs whitespace-nowrap", getStatusColor(asset.status))}
+                  >
+                    {asset.status === "Operational" && "🟢 "}
+                    {asset.status === "Warning" && "🟡 "}
+                    {asset.status === "Critical" && "🔴 "}
                     {asset.status}
                   </Badge>
-                </TableCell>
-                <TableCell className="text-muted-foreground">{asset.owner}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+
+                  {/* Hover Actions */}
+                  <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleFavorite(startIndex + index);
+                      }}
+                      className="p-1 hover:bg-muted rounded"
+                    >
+                      <Heart
+                        className={cn(
+                          "h-4 w-4",
+                          favorites.has(startIndex + index) ? "fill-red-500 text-red-500" : "text-muted-foreground"
+                        )}
+                      />
+                    </button>
+                    <button className="p-1 hover:bg-muted rounded">
+                      <ExternalLink className="h-4 w-4 text-muted-foreground" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </Card>
+          ))
+        )}
       </div>
 
-      {/* Footer */}
-      <div className="flex justify-end mt-4">
-        <a
-          href="#"
-          className="text-sm text-primary hover:underline flex items-center gap-1"
-        >
-          View All Assets
-          <ChevronRight className="h-4 w-4" />
-        </a>
-      </div>
+      {/* Pagination */}
+      {totalPages > 1 && (
+        <div className="flex items-center justify-center gap-2 mt-6">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+            disabled={currentPage === 1}
+          >
+            Previous
+          </Button>
+          
+          <div className="flex items-center gap-1">
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
+              <Button
+                key={page}
+                variant={currentPage === page ? "default" : "outline"}
+                size="sm"
+                onClick={() => setCurrentPage(page)}
+                className="w-10"
+              >
+                {page}
+              </Button>
+            ))}
+          </div>
+
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
+            disabled={currentPage === totalPages}
+          >
+            Next
+          </Button>
+        </div>
+      )}
     </div>
   );
 };
