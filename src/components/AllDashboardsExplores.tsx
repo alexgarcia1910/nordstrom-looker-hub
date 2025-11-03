@@ -173,37 +173,37 @@ export const AllDashboardsExplores = () => {
           paginatedAssets.map((asset, index) => (
             <Card
               key={startIndex + index}
-              className="p-6 hover:shadow-md transition-all cursor-pointer group relative"
+              className="p-4 sm:p-6 hover:shadow-md transition-all cursor-pointer group relative overflow-hidden"
             >
-              <div className="flex items-start justify-between gap-4">
+              <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-4">
                 {/* Left side - Icon and Content */}
-                <div className="flex items-start gap-4 flex-1">
+                <div className="flex items-start gap-3 sm:gap-4 flex-1 min-w-0">
                   {/* Icon */}
-                  <div className="mt-1">
+                  <div className="mt-1 flex-shrink-0">
                     {asset.type === "Dashboard" ? (
-                      <LayoutGrid className="h-5 w-5 text-foreground" />
+                      <LayoutGrid className="h-4 w-4 sm:h-5 sm:w-5 text-foreground" />
                     ) : (
-                      <Search className="h-5 w-5 text-foreground" />
+                      <Search className="h-4 w-4 sm:h-5 sm:w-5 text-foreground" />
                     )}
                   </div>
 
                   {/* Content */}
-                  <div className="flex-1">
-                    <h3 className="text-lg font-semibold text-foreground mb-2">
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-base sm:text-lg font-semibold text-foreground mb-2">
                       {asset.name}
                     </h3>
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground mb-3">
+                    <div className="flex flex-wrap items-center gap-2 text-xs sm:text-sm text-muted-foreground mb-2">
                       <span>{asset.domain}</span>
                       <span>/</span>
                       <span>{asset.subdomain}</span>
                       <span>|</span>
-                      <span>{asset.owner}</span>
+                      <span className="truncate">{asset.owner}</span>
                     </div>
                   </div>
                 </div>
 
                 {/* Right side - Status Badge and Actions */}
-                <div className="flex items-start gap-3">
+                <div className="flex items-center justify-between sm:flex-col sm:items-end gap-2 sm:gap-3 flex-shrink-0">
                   <Badge
                     variant="outline"
                     className={cn("text-xs whitespace-nowrap", getStatusColor(asset.status))}
@@ -215,7 +215,7 @@ export const AllDashboardsExplores = () => {
                   </Badge>
 
                   {/* Hover Actions */}
-                  <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <div className="flex items-center gap-2 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
                     <button
                       onClick={(e) => {
                         e.stopPropagation();

@@ -37,7 +37,7 @@ export const SidebarV8 = ({ selectedCategory, onCategorySelect, onAdminToggle, i
       <Button
         variant="ghost"
         size="icon"
-        className="fixed left-4 top-4 z-50 lg:hidden"
+        className="fixed left-4 top-20 z-50 lg:hidden"
         onClick={() => setIsOpen(!isOpen)}
       >
         {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -45,7 +45,7 @@ export const SidebarV8 = ({ selectedCategory, onCategorySelect, onAdminToggle, i
 
       <aside
         className={cn(
-          "fixed left-0 top-0 h-screen border-r border-border bg-background smooth-transition z-40 flex flex-col",
+          "fixed left-0 top-0 h-full border-r border-border bg-background smooth-transition z-40 flex flex-col overflow-y-auto",
           isCollapsed ? "w-20" : "w-64",
           isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
         )}

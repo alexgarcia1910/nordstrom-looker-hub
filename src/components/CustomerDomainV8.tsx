@@ -211,18 +211,18 @@ export const CustomerDomainV8 = () => {
     <div className="p-8 lg:p-12">
       <div className="max-w-[1800px] mx-auto">
         {/* Header Section with Title and Info Cards */}
-        <div className="mb-6 flex items-center justify-between gap-8">
-          <div>
+        <div className="mb-6 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 lg:gap-8">
+          <div className="flex-1">
             <h2 className="text-2xl font-semibold text-foreground mb-2">Customer Data Directory</h2>
             <p className="text-sm text-muted-foreground">
               Browse dashboards and explores for customer insights, loyalty, and engagement.
             </p>
           </div>
 
-          <div className="flex gap-4 flex-shrink-0">
-            <Card className="p-4 flex items-center gap-3 hover:shadow-md transition-shadow cursor-pointer max-w-sm">
+          <div className="flex flex-col sm:flex-row gap-3 lg:gap-4 lg:flex-shrink-0">
+            <Card className="p-3 lg:p-4 flex items-center gap-3 hover:shadow-md transition-shadow cursor-pointer w-full sm:max-w-[280px]">
               <BookOpen className="h-5 w-5 text-foreground flex-shrink-0" />
-              <div>
+              <div className="min-w-0">
                 <h3 className="font-semibold text-sm text-foreground">Access & Onboarding</h3>
                 <p className="text-xs text-muted-foreground">
                   Customer analytics setup guides and resources.
@@ -230,9 +230,9 @@ export const CustomerDomainV8 = () => {
               </div>
             </Card>
 
-            <Card className="p-4 flex items-center gap-3 hover:shadow-md transition-shadow cursor-pointer max-w-sm">
+            <Card className="p-3 lg:p-4 flex items-center gap-3 hover:shadow-md transition-shadow cursor-pointer w-full sm:max-w-[280px]">
               <GraduationCap className="h-5 w-5 text-foreground flex-shrink-0" />
-              <div>
+              <div className="min-w-0">
                 <h3 className="font-semibold text-sm text-foreground">Training & Resources</h3>
                 <p className="text-xs text-muted-foreground">
                   Learn best practices for customer data analysis.
