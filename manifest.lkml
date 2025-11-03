@@ -1,6 +1,6 @@
 application: nordstrom_looker_hub {
   label: "Nordstrom Looker Hub"
-  url: "https://localhost:8080/bundle.js"
+  url: "http://localhost:8080/bundle.js"
   # For production: https://your-cdn.com/bundle.js
   
   entitlements: {
