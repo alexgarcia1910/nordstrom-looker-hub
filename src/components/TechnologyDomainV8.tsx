@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useLookerSDK } from "@/hooks/useLookerSDK";
 import { Heart, LayoutGrid, Search, BookOpen, GraduationCap, ExternalLink } from "lucide-react";
 import { Badge } from "./ui/badge";
 import { Card } from "./ui/card";
@@ -154,15 +155,45 @@ const mockData: DirectoryItem[] = [
 ];
 
 export const TechnologyDomainV8 = () => {
+  const sdk = useLookerSDK();
+  const [mockData, setMockData] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  
+  useEffect(() => {
+    const fetchTechnologyContent = async () => {
+      try {
+        setLoading(true);
+        const dashboards = await sdk.ok(sdk.all_dashboards("id,title,description,folder,updated_at,view_count"));
+        const transformed = Array.isArray(dashboards) ? dashboards.map((dash: any, index: number) => ({
+          id: dash.id?.toString() || String(index),
+          type: "Dashboard",
+          name: dash.title || "Untitled",
+          domain: "Technology",
+          subdomain: dash.folder?.name || "General",
+          description: dash.description || "Technology dashboard",
+          status: (dash.view_count && dash.view_count > 100) ? "Operational" : "Warning",
+          owner: "IT Analytics"
+        })) : [];
+        setMockData(transformed);
+      } catch (error) {
+        console.error("Error:", error);
+        setMockData([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchTechnologyContent();
+  }, [sdk]);
+  
   const [typeFilter, setTypeFilter] = useState<string>("all");
   const [subdomainFilter, setSubdomainFilter] = useState<string>("all");
   const [ownerFilter, setOwnerFilter] = useState<string>("all");
   const [statusFilter, setStatusFilter] = useState<string>("all");
-  const [favorites, setFavorites] = useState<Set<string>>(
-    new Set(mockData.filter(item => item.isFavorite).map(item => item.id))
-  );
+  const [favorites, setFavorites] = useState<Set<string>>(new Set());
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
+  
+  if (loading) return <div className="p-12 text-center text-muted-foreground">Loading...</div>;
 
   const toggleFavorite = (id: string) => {
     setFavorites(prev => {

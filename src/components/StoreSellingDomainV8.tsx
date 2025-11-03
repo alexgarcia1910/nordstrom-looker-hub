@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useLookerSDK } from "@/hooks/useLookerSDK";
 import { LayoutGrid, Search, BookOpen, GraduationCap } from "lucide-react";
 import { Badge } from "./ui/badge";
 import { Card } from "./ui/card";
@@ -109,10 +110,42 @@ const mockData: DirectoryItem[] = [
 ];
 
 export const StoreSellingDomainV8 = () => {
+  const sdk = useLookerSDK();
+  const [mockData, setMockData] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  
+  useEffect(() => {
+    const fetchStoreSellingContent = async () => {
+      try {
+        setLoading(true);
+        const dashboards = await sdk.ok(sdk.all_dashboards("id,title,description,folder,updated_at,view_count"));
+        const transformed = Array.isArray(dashboards) ? dashboards.map((dash: any, index: number) => ({
+          id: dash.id?.toString() || String(index),
+          type: "Dashboard",
+          name: dash.title || "Untitled",
+          domain: "Store Selling",
+          subdomain: dash.folder?.name || "Store Operations",
+          description: dash.description || "Store dashboard",
+          status: (dash.view_count && dash.view_count > 100) ? "Operational" : "Warning",
+          owner: "Retail Analytics"
+        })) : [];
+        setMockData(transformed);
+      } catch (error) {
+        console.error("Error:", error);
+        setMockData([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchStoreSellingContent();
+  }, [sdk]);
+  
   const [typeFilter, setTypeFilter] = useState<string>("all");
   const [subdomainFilter, setSubdomainFilter] = useState<string>("all");
   const [ownerFilter, setOwnerFilter] = useState<string>("all");
   const [statusFilter, setStatusFilter] = useState<string>("all");
+  
+  if (loading) return <div className="p-12 text-center text-muted-foreground">Loading...</div>;
 
   // Get unique values for filters
   const uniqueOwners = Array.from(new Set(mockData.map(item => item.owner))).sort();

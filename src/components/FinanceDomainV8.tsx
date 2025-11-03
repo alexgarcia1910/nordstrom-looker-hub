@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useLookerSDK } from "@/hooks/useLookerSDK";
 import { Heart, LayoutGrid, Search, BookOpen, GraduationCap, ExternalLink } from "lucide-react";
 import { Badge } from "./ui/badge";
 import { Card } from "./ui/card";
@@ -201,11 +202,52 @@ const mockData: DirectoryItem[] = [{
   isFavorite: false
 }];
 export const FinanceDomainV8 = () => {
+  const sdk = useLookerSDK();
+  const [mockData, setMockData] = useState<DirectoryItem[]>([]);
+  const [loading, setLoading] = useState(true);
+  
+  useEffect(() => {
+    const fetchFinanceContent = async () => {
+      try {
+        setLoading(true);
+        
+        // Fetch all dashboards and looks
+        const dashboards = await sdk.ok(
+          sdk.all_dashboards("id,title,description,folder,updated_at,view_count")
+        );
+        
+        // Transform to match current mockData structure
+        const transformed: DirectoryItem[] = Array.isArray(dashboards) ? dashboards.map((dash: any, index: number) => ({
+          id: dash.id?.toString() || String(index),
+          type: "Dashboard" as const,
+          name: dash.title || "Untitled",
+          domain: "Finance",
+          subdomain: dash.folder?.name || "General",
+          description: dash.description || "Financial dashboard",
+          status: (dash.view_count && dash.view_count > 100) ? "Operational" as const : "Warning" as const,
+          environment: "Production" as const,
+          access: "Viewer" as const,
+          owner: "Finance Analytics Team",
+          isFavorite: false
+        })) : [];
+        
+        setMockData(transformed);
+      } catch (error) {
+        console.error("Error fetching Finance content:", error);
+        setMockData([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchFinanceContent();
+  }, [sdk]);
+  
   const [typeFilter, setTypeFilter] = useState<string>("all");
   const [subdomainFilter, setSubdomainFilter] = useState<string>("all");
   const [ownerFilter, setOwnerFilter] = useState<string>("all");
   const [statusFilter, setStatusFilter] = useState<string>("all");
-  const [favorites, setFavorites] = useState<Set<string>>(new Set(mockData.filter(item => item.isFavorite).map(item => item.id)));
+  const [favorites, setFavorites] = useState<Set<string>>(new Set());
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
   const toggleFavorite = (id: string) => {
@@ -261,6 +303,10 @@ export const FinanceDomainV8 = () => {
         return "bg-gray-50 text-gray-700 border-gray-200";
     }
   };
+
+  if (loading) {
+    return <div className="p-12 text-center text-muted-foreground">Loading Finance content...</div>;
+  }
 
   return (
     <div className="p-8 lg:p-12">

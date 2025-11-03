@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useLookerSDK } from "@/hooks/useLookerSDK";
 import { LayoutGrid, Search, Heart, ExternalLink } from "lucide-react";
 import {
   Select,
@@ -12,22 +13,11 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-const allAssets = [
-  { type: "Dashboard", name: "Sales Performance Dashboard", domain: "Finance", subdomain: "Performance & KPIs", status: "Operational", owner: "Finance Analytics Team" },
-  { type: "Explore", name: "Store Traffic Explorer", domain: "Store Selling", subdomain: "Sales & Performance", status: "Warning", owner: "Retail Data Team" },
-  { type: "Dashboard", name: "Inventory Insights Dashboard", domain: "Merchandising", subdomain: "Product Lifecycle", status: "Operational", owner: "Merch Analytics" },
-  { type: "Dashboard", name: "Labor Cost Breakdown", domain: "Store Selling", subdomain: "Workforce Planning", status: "Critical", owner: "Retail Analytics" },
-  { type: "Dashboard", name: "Supply Chain Overview", domain: "Supply Chain", subdomain: "Logistics", status: "Operational", owner: "Ops Insights" },
-  { type: "Explore", name: "Tech Performance Monitor", domain: "Technology", subdomain: "Systems Health", status: "Operational", owner: "IT Analytics" },
-  { type: "Dashboard", name: "Promotions Summary", domain: "Merchandising", subdomain: "Pricing & Promotions", status: "Warning", owner: "Merch Data Team" },
-  { type: "Dashboard", name: "Revenue Forecasting Dashboard", domain: "Finance", subdomain: "Planning & Forecasting", status: "Operational", owner: "Finance Analytics Team" },
-  { type: "Explore", name: "Customer Segmentation Explorer", domain: "Merchandising", subdomain: "Buying & Planning", status: "Operational", owner: "Merch Analytics" },
-  { type: "Dashboard", name: "Store Operations Dashboard", domain: "Store Selling", subdomain: "Store Operations", status: "Warning", owner: "Retail Analytics" },
-  { type: "Dashboard", name: "Vendor Performance Dashboard", domain: "Merchandising", subdomain: "Vendor Performance", status: "Critical", owner: "Merch Data Team" },
-  { type: "Explore", name: "Financial Health Explorer", domain: "Finance", subdomain: "Financial Reporting", status: "Operational", owner: "Finance Analytics Team" },
-];
-
 export const AllDashboardsExplores = () => {
+  const sdk = useLookerSDK();
+  const [allAssets, setAllAssets] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  
   const [domainFilter, setDomainFilter] = useState("all");
   const [subdomainFilter, setSubdomainFilter] = useState("all");
   const [typeFilter, setTypeFilter] = useState("all");
@@ -35,6 +25,59 @@ export const AllDashboardsExplores = () => {
   const [ownerFilter, setOwnerFilter] = useState("all");
   const [currentPage, setCurrentPage] = useState(1);
   const [favorites, setFavorites] = useState<Set<number>>(new Set());
+  
+  useEffect(() => {
+    const fetchAllContent = async () => {
+      try {
+        setLoading(true);
+        
+        // Fetch all dashboards
+        const dashboards = await sdk.ok(
+          sdk.search_dashboards({
+            fields: "id,title,folder,user_id,view_count,favorite_count",
+            limit: 100
+          })
+        );
+        
+        // Fetch all looks
+        const looks = await sdk.ok(
+          sdk.search_looks({
+            fields: "id,title,folder,user_id,view_count,favorite_count",
+            limit: 100
+          })
+        );
+        
+        // Transform to match current structure
+        const transformedAssets = [
+          ...dashboards.map(dash => ({
+            type: "Dashboard",
+            name: dash.title || "Untitled Dashboard",
+            domain: "Analytics",
+            subdomain: dash.folder?.name || "General",
+            status: (dash.view_count && dash.view_count > 100) ? "Operational" as const : "Warning" as const,
+            owner: "Analytics Team"
+          })),
+          ...looks.map(look => ({
+            type: "Explore",
+            name: look.title || "Untitled Look",
+            domain: "Analytics",
+            subdomain: look.folder?.name || "General",
+            status: (look.view_count && look.view_count > 50) ? "Operational" as const : "Warning" as const,
+            owner: "Analytics Team"
+          }))
+        ];
+        
+        setAllAssets(transformedAssets);
+      } catch (error) {
+        console.error("Error fetching content:", error);
+        setAllAssets([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAllContent();
+  }, [sdk]);
 
   const itemsPerPage = 10;
 
@@ -77,6 +120,14 @@ export const AllDashboardsExplores = () => {
     }
   };
 
+
+  if (loading) {
+    return (
+      <div className="mt-12 border-t border-border pt-12 text-center py-12">
+        <p className="text-muted-foreground">Loading dashboards and explores...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="mt-12 border-t border-border pt-12">

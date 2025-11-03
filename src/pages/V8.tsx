@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useLookerSDK } from "@/hooks/useLookerSDK";
+import { useLookerUser } from "@/hooks/useLookerUser";
 import { NavbarV8 } from "@/components/NavbarV8";
 import { SidebarV8 } from "@/components/SidebarV8";
 import { ActivityCard } from "@/components/ActivityCard";
@@ -22,29 +24,99 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 
-const favoritesData = [
-  { name: "Sales Performance Dashboard", domain: "Finance", timestamp: "Last opened 2 days ago" },
-  { name: "Inventory Insights", domain: "Merchandising", timestamp: "Last opened 4 days ago" },
-  { name: "Store Traffic Trends", domain: "Store Selling", timestamp: "Last opened 1 week ago" },
-];
-
-const recentlyViewedData = [
-  { name: "Weekly Revenue Explorer", domain: "Finance", timestamp: "Opened 3 hours ago" },
-  { name: "Promo Effectiveness Dashboard", domain: "Merchandising", timestamp: "Opened 1 day ago" },
-  { name: "Labor Cost Breakdown", domain: "Store Selling", timestamp: "Opened 2 days ago" },
-];
-
-const boardsData = [
-  { name: "Q4 Executive Summary", domain: "Board", timestamp: "Updated Oct 25" },
-  { name: "Store Operations KPI Board", domain: "Board", timestamp: "Updated Oct 20" },
-  { name: "Digital Sales Performance", domain: "Board", timestamp: "Updated Oct 12" },
-];
+const formatDate = (dateString?: string) => {
+  if (!dateString) return "recently";
+  
+  const date = new Date(dateString);
+  const now = new Date();
+  const diffMs = now.getTime() - date.getTime();
+  const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+  
+  if (diffDays === 0) return "today";
+  if (diffDays === 1) return "1 day ago";
+  if (diffDays < 7) return `${diffDays} days ago`;
+  if (diffDays < 30) return `${Math.floor(diffDays / 7)} weeks ago`;
+  return date.toLocaleDateString();
+};
 
 const V8 = () => {
+  const sdk = useLookerSDK();
+  const { user } = useLookerUser();
+  
   const [selectedCategory, setSelectedCategory] = useState("home");
   const [isAdminMode, setIsAdminMode] = useState(false);
   const [showSupplyChainModal, setShowSupplyChainModal] = useState(false);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  
+  // Replace static data with dynamic state
+  const [favoritesData, setFavoritesData] = useState<any[]>([]);
+  const [recentlyViewedData, setRecentlyViewedData] = useState<any[]>([]);
+  const [boardsData, setBoardsData] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!user?.id) return;
+      
+      try {
+        setLoading(true);
+        
+        // Fetch recent dashboards and looks as placeholders
+        const dashboards = await sdk.ok(
+          sdk.all_dashboards("id,title,created_at,view_count")
+        );
+        
+        const looks = await sdk.ok(
+          sdk.all_looks("id,title,created_at,view_count")
+        );
+        
+        // Fetch Boards
+        const boards = await sdk.ok(
+          sdk.all_boards("id,title,updated_at")
+        );
+        
+        // Transform to match current data structure
+        const dashArray = Array.isArray(dashboards) ? dashboards.slice(0, 2) : [];
+        const lookArray = Array.isArray(looks) ? looks.slice(0, 1) : [];
+        setFavoritesData(
+          [...dashArray, ...lookArray].map((item: any) => ({
+            name: item.title || "Untitled",
+            domain: "Various",
+            timestamp: `Last opened ${formatDate(item.created_at || undefined)}`
+          }))
+        );
+        
+        const recentArray = Array.isArray(dashboards) ? dashboards.slice(0, 3) : [];
+        setRecentlyViewedData(
+          recentArray.map((item: any) => ({
+            name: item.title || "Untitled",
+            domain: "Various",
+            timestamp: `Opened ${formatDate(item.created_at || undefined)}`
+          }))
+        );
+        
+        const boardArray = Array.isArray(boards) ? boards.slice(0, 3) : [];
+        setBoardsData(
+          boardArray.map((board: any) => ({
+            name: board.title || "Untitled Board",
+            domain: "Board",
+            timestamp: `Updated ${formatDate(board.updated_at || undefined)}`
+          }))
+        );
+        
+      } catch (error) {
+        console.error("Error fetching Looker data:", error);
+        // Fallback to empty arrays
+        setFavoritesData([]);
+        setRecentlyViewedData([]);
+        setBoardsData([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [sdk, user]);
 
   const handleCategorySelect = (category: string) => {
     if (category === "supply-chain") {
